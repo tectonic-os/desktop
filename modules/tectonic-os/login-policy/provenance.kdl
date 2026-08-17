@@ -1,5 +1,5 @@
 imported "tectonic-os" {
-    content "4e31194a2045da4ab4eee1bfe2b8063ee002b4825cd07f9326eddb4017067e90"
+    content "4b4f609a7e85a7cccb8b56000d580867e92daf736e4f190fefa4b62f23c41cfa"
     pin {
         unpinned "This is the trusted source for modules"
         version "main"

@@ -444,12 +444,12 @@
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "4e31194a2045da4ab4eee1bfe2b8063ee002b4825cd07f9326eddb4017067e90",
+                "content": "4b4f609a7e85a7cccb8b56000d580867e92daf736e4f190fefa4b62f23c41cfa",
                 "repo": false,
                 "pin": null,
                 "imported": {
                   "collection": "tectonic-os",
-                  "content": "4e31194a2045da4ab4eee1bfe2b8063ee002b4825cd07f9326eddb4017067e90",
+                  "content": "4b4f609a7e85a7cccb8b56000d580867e92daf736e4f190fefa4b62f23c41cfa",
                   "pin": {
                     "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
                     "selector": "main",
@@ -578,12 +578,12 @@
                 "just"
               ],
               "provenance": {
-                "content": "0f4b467f0befea6a479c6a7f1f97b8e433d1164d0864e1622637dc49cfecefdb",
+                "content": "ea3a9966ffedafaecc1e2c1e547d28fd4442d467eb10bf72e3b5b8099d570520",
                 "repo": false,
                 "pin": null,
                 "imported": {
                   "collection": "tectonic-os",
-                  "content": "0f4b467f0befea6a479c6a7f1f97b8e433d1164d0864e1622637dc49cfecefdb",
+                  "content": "ea3a9966ffedafaecc1e2c1e547d28fd4442d467eb10bf72e3b5b8099d570520",
                   "pin": {
                     "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
                     "selector": "main",
