@@ -1,0 +1,861 @@
+---
+name: Build container image
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '30 12 * * *'
+    - cron: '45 9 1 * *'  # monthly stock-kernel fallback validation build
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/README.md'
+      - '.github/workflows/cleanup-registry.yml'
+  workflow_dispatch:
+    inputs:
+      kernel:
+        description: >-
+          Override the Containerfile KERNEL arg (cachyos or stock; empty
+          uses the repo default). stock builds validate the fallback
+          kernel path and are never pushed, signed, or cached.
+        type: string
+        default: ''
+
+env:
+  KERNEL: ${{ github.event.inputs.kernel || (github.event.schedule == '45 9 1 * *' && 'stock') || '' }}
+  PROBE_IMAGE: "quay.io/podman/hello:latest"
+  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
+
+jobs:
+  # First, so everything below reads the fixed-up tree rather than a second
+  # workflow run over it.
+  checksums:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    outputs:
+      ref: ${{ steps.fixup.outputs.ref }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref || '' }}
+          fetch-depth: 0
+
+      - name: Recompute stale checksums and push a fixup
+        id: fixup
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+
+          base="$(git merge-base "origin/${BASE_REF}" HEAD)"
+          changed="$(git diff --name-only "$base" HEAD \
+            | grep -E '^(modules/.*/module\.kdl|modules\.kdl)$' || true)"
+          if [ -z "$changed" ]; then
+            echo "No manifest changed against ${BASE_REF}, nothing to do."
+            exit 0
+          fi
+          echo "Changed manifests:"
+          echo "$changed"
+
+          fixed=()
+
+          if grep -qE '^[^/]+\.kdl$' <<< "$changed"; then
+            while IFS='|' read -r name _ ref pinned url _ file; do
+              if ! curl -fsSL --retry 3 "$url" -o "${RUNNER_TEMP}/module"; then
+                echo "::error file=${file}::${name} ${ref}: ${url} did not download. A version whose archive URL does not follow from it needs the pin url in ${file} updated by hand."
+                exit 1
+              fi
+              actual="$(sha256sum "${RUNNER_TEMP}/module" | cut -d' ' -f1)"
+              rm -f "${RUNNER_TEMP}/module"
+
+              if [ "$actual" = "$pinned" ]; then
+                echo "${name} ${ref}: hash already matches."
+                continue
+              fi
+              sed -i "s/sha256 \"${pinned}\"/sha256 \"${actual}\"/" "${file}"
+              fixed+=("${name} ${ref}")
+              echo "${name} ${ref}: hash updated."
+            done < <(./scripts/tect.sh plan --json | jq -r '.remotes[]
+              | [.name, .dir, .pin.selector, .pin.verifier, .pin.resolved,
+                 (.pin.path // ""), .file] | join("|")')
+          fi
+
+          ./scripts/tect.sh fetch modules
+          while IFS='|' read -r module name file version pinned from url; do
+            grep -qxF "$file" <<< "$changed" || continue
+            [ -n "$pinned" ] || continue
+            if [ "$from" = "manual" ]; then
+              echo "${module} ${name}: hash is maintained by hand, skipping."
+              continue
+            fi
+
+            target="$url"
+            [ "$from" != "sidecar" ] || target="${url}.sha256"
+            if ! curl -fsSL --retry 3 "$target" -o "${RUNNER_TEMP}/asset"; then
+              echo "::error file=${file}::${name} ${version}: ${target} did not download. A version bump whose asset filename does not follow from the version needs the url in ${file} updated by hand."
+              exit 1
+            fi
+            if [ "$from" = "sidecar" ]; then
+              actual="$(cut -d' ' -f1 < "${RUNNER_TEMP}/asset")"
+            else
+              actual="$(sha256sum "${RUNNER_TEMP}/asset" | cut -d' ' -f1)"
+            fi
+            rm -f "${RUNNER_TEMP}/asset"
+
+            if [ "$actual" = "$pinned" ]; then
+              echo "${module} ${name} ${version}: hash already matches."
+              continue
+            fi
+            sed -i "s/sha256 \"${pinned}\"/sha256 \"${actual}\"/" "$file"
+            fixed+=("${name} ${version}")
+            echo "${module} ${name} ${version}: hash updated."
+          done < <(./scripts/tect.sh plan --json | jq -r '.assets[]
+            | [.module, .name, .manifest, (.pin.selector // ""), (.pin.verifier // ""),
+               .pin.from, (.pin.resolved // "")] | join("|")')
+
+          ./scripts/tect.sh generate
+
+          if git diff --quiet; then
+            echo "Nothing to fix up."
+            exit 0
+          fi
+
+          if [ "${#fixed[@]}" -gt 0 ]; then
+            message="update checksums: $(IFS=', '; echo "${fixed[*]}")"
+          else
+            message="regenerate the build files for the bumped pins"
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "$message"
+          git push origin "HEAD:${BRANCH}"
+          echo "ref=${BRANCH}" >> "$GITHUB_OUTPUT"
+
+  lint:
+    needs: checksums
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+
+      - name: Install shfmt
+        env:
+          SHFMT_VERSION: "3.13.1"
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/shfmt \
+            "https://github.com/mvdan/sh/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64"
+          sudo chmod +x /usr/local/bin/shfmt
+
+      # shellcheck and shfmt over every Bash script in the repo, then a
+      # generator dry run
+      - name: Run lint
+        run: ./scripts/lint.sh
+
+  actionlint:
+    needs: checksums
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+
+      - name: Run actionlint
+        uses: docker://rhysd/actionlint:1.7.12
+
+  script-tests:
+    needs: checksums
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+
+      - name: Run the scan logic tests
+        run: ./tests/scan-test.sh
+
+      - name: Discover and run kernel-freshness tests
+        run: |
+          mapfile -t dirs < <(find modules -name test_kernel_freshness.py -type f -exec dirname {} \; | sort -u)
+          for d in "${dirs[@]}"; do
+            echo "==> Running tests in ${d}..."
+            python3 -m unittest discover -s "$d" -v
+          done
+
+  compute-matrix:
+    needs: [checksums, lint, actionlint, script-tests]
+    if: github.event_name != 'push' || github.actor != 'renovate[bot]'
+    runs-on: ubuntu-24.04
+    outputs:
+      targets: ${{ steps.set.outputs.targets }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+      - id: set
+        run: |
+          selection='[.images[].targets[].name]'
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            selection='[.pr_target]'
+          fi
+          targets="$(./scripts/tect.sh plan --json | jq -c "$selection")"
+          echo "targets=${targets}" >> "$GITHUB_OUTPUT"
+
+  build_push:
+    needs: [checksums, compute-matrix]
+    name: Build and push image (${{ matrix.target }})
+    runs-on: ubuntu-24.04
+
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.compute-matrix.outputs.targets) }}
+      fail-fast: false
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref || github.run_id }}-${{ matrix.target }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+
+      - name: Resolve the plan
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          ./scripts/tect.sh plan --json > "${RUNNER_TEMP}/plan.json"
+          jq -e --arg t "$TARGET" '.images[] | select([.targets[].name] | index($t))' \
+            "${RUNNER_TEMP}/plan.json" > "${RUNNER_TEMP}/image.json"
+          jq -e --arg t "$TARGET" '.targets[] | select(.name == $t)' \
+            "${RUNNER_TEMP}/image.json" > "${RUNNER_TEMP}/target.json"
+          {
+            echo "PLAN=${RUNNER_TEMP}/plan.json"
+            echo "IMAGE_PLAN=${RUNNER_TEMP}/image.json"
+            echo "TARGET_PLAN=${RUNNER_TEMP}/target.json"
+          } >> "${GITHUB_ENV}"
+
+      - name: Prepare environment
+        run: |
+          {
+            echo "IMAGE_REGISTRY=${IMAGE_REGISTRY,,}"
+            echo "IMAGE_NAME=$(jq -r '.published' "$TARGET_PLAN")"
+            echo "CONTAINERFILE=generated/$(jq -r '.image' "$TARGET_PLAN")"
+            echo "RECHUNK=$(jq -r '.base.provides | index("rechunking") != null' "$IMAGE_PLAN")"
+            echo "IMAGE_DESC=$(jq -r '.description' "$IMAGE_PLAN")"
+            echo "IMAGE_KEYWORDS=$(jq -r '.keywords | join(",")' "$IMAGE_PLAN")"
+            echo "IMAGE_LOGO_URL=$(jq -r '.logo_url' "$IMAGE_PLAN")"
+          } >> "${GITHUB_ENV}"
+          if [ "${{ github.event_name }}" != "pull_request" ] \
+             && [ "${{ github.ref }}" = "refs/heads/${{ github.event.repository.default_branch }}" ] \
+             && [ "$KERNEL" != "stock" ]; then
+            echo "PUBLISH=true" >> "${GITHUB_ENV}"
+          else
+            echo "PUBLISH=false" >> "${GITHUB_ENV}"
+          fi
+
+      - name: Select a working container runtime
+        id: runtime
+        run: |
+          echo "podman: $(podman --version)"
+          for rt in crun runc; do
+            if command -v "$rt" > /dev/null; then
+              echo "${rt}: $("$rt" --version | head -1)"
+            else
+              echo "${rt}: absent"
+            fi
+          done
+          if sudo podman run --rm --runtime crun "$PROBE_IMAGE" > /dev/null 2>&1; then
+            echo "crun works; leaving the default alone"
+            echo "flag=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "::warning::crun cannot start a container on this runner; falling back to runc"
+          if ! command -v runc > /dev/null; then
+            echo "::error::crun cannot start a container and runc is not installed, so there is no working OCI runtime on this runner"
+            exit 1
+          fi
+          sudo podman run --rm --runtime runc "$PROBE_IMAGE" > /dev/null
+          echo "flag=--runtime=runc" >> "$GITHUB_OUTPUT"
+          echo "runc can start a container"
+
+      - name: Get current date
+        id: date
+        run: |
+          echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
+          echo "version=$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve base image digest
+        id: base
+        run: |
+          set -euo pipefail
+          base="$(jq -r '.base.image' "$IMAGE_PLAN")"
+          digest="$(skopeo inspect --format '{{.Digest}}' "docker://${base}")"
+          echo "name=${base}" >> "$GITHUB_OUTPUT"
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Image Metadata
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        id: metadata
+        with:
+          images: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=raw,value=${{ steps.date.outputs.version }}
+            type=sha,enable=${{ github.event_name == 'pull_request' }}
+            type=ref,event=pr
+          labels: |
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.sha }}/README.md
+            org.opencontainers.image.created=${{ steps.date.outputs.date }}
+            org.opencontainers.image.description=${{ env.IMAGE_DESC }} (${{ matrix.target }})
+            org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.sha }}/README.md
+            org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/blob/${{ github.sha }}/${{ env.CONTAINERFILE }}
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/tree/${{ github.sha }}
+            org.opencontainers.image.vendor=${{ github.repository_owner }}
+            org.opencontainers.image.version=${{ steps.date.outputs.version }}
+            org.opencontainers.image.base.name=${{ steps.base.outputs.name }}
+            org.opencontainers.image.base.digest=${{ steps.base.outputs.digest }}
+            io.artifacthub.package.deprecated=false
+            io.artifacthub.package.keywords=${{ env.IMAGE_KEYWORDS }}
+            io.artifacthub.package.license=Apache-2.0
+            io.artifacthub.package.logo-url=${{ env.IMAGE_LOGO_URL }}
+            io.artifacthub.package.prerelease=false
+            containers.bootc=1
+
+      - name: Write the declared build secrets
+        if: env.PUBLISH == 'true'
+        env:
+          SECRET_MOK_PRIVKEY: ${{ secrets.MOK_PRIVKEY }}
+        run: |
+          umask 077
+          mkdir -p "${RUNNER_TEMP}/build-secrets"
+          while IFS= read -r id; do
+            [ -n "$id" ] || continue
+            case "$id" in
+              *[!a-z0-9_]*)
+                echo "::warning::build secret id '${id}' is not [a-z0-9_], ignoring it"
+                continue
+                ;;
+            esac
+            name="SECRET_${id^^}"
+            value="${!name:-}"
+            if [ -z "$value" ]; then
+              echo "::warning::a module declares the build secret '${id}'," \
+                "but this workflow passes no ${name}. Building without it."
+              continue
+            fi
+            printf '%s' "$value" > "${RUNNER_TEMP}/build-secrets/${id}"
+            echo "wrote build secret ${id} from ${name}"
+          done < <(jq -r '.secrets[]' "$TARGET_PLAN")
+
+      - name: Setup Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        if: env.PUBLISH == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        env:
+          TARGET: ${{ matrix.target }}
+          # The digest the label was stamped with, so the build record and the
+          # label are one resolution of a moving tag rather than two.
+          BASE: ${{ steps.base.outputs.name }}@${{ steps.base.outputs.digest }}
+          EVENT: ${{ github.event_name }}
+          ON_DEFAULT_BRANCH: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+          IMAGE_VERSION: ${{ steps.date.outputs.version }}
+          TAGS: ${{ steps.metadata.outputs.tags }}
+          LABELS: ${{ steps.metadata.outputs.labels }}
+        run: |
+          args=(--backend buildx --target "$TARGET")
+          for secret in "${RUNNER_TEMP}"/build-secrets/*; do
+            [ -f "$secret" ] || continue
+            args+=(--secret "$(basename "$secret")=${secret}")
+          done
+          if [ -n "$KERNEL" ]; then
+            args+=(--kernel "$KERNEL")
+          fi
+          if [ "$EVENT" = "schedule" ]; then
+            args+=(--no-cache-from)
+          fi
+          if [ "$KERNEL" != "stock" ] \
+             && { [ "$EVENT" = "schedule" ] \
+                  || { [ "$EVENT" != "pull_request" ] && [ "$ON_DEFAULT_BRANCH" = "true" ]; }; }; then
+            args+=(--cache-to)
+          fi
+          if [ "$PUBLISH" = "true" ]; then
+            args+=(--oci-output "${RUNNER_TEMP}/raw-oci.tar")
+          fi
+          ./scripts/tect.sh build "${args[@]}"
+
+      - name: Summarize the resolved build
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          {
+            echo "## ${IMAGE_NAME}"
+            echo
+            ./scripts/tect.sh summary "$TARGET"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the generated Containerfile
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: containerfile-${{ env.IMAGE_NAME }}
+          path: ${{ env.CONTAINERFILE }}
+          retention-days: 30
+
+      - name: Setup Syft
+        id: setup-syft
+        if: env.PUBLISH == 'true'
+        uses: anchore/sbom-action/download-syft@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+
+      - name: Import image into containers-storage
+        if: env.PUBLISH == 'true'
+        run: |
+          sudo skopeo copy "oci-archive:${RUNNER_TEMP}/raw-oci.tar:latest" \
+            "containers-storage:localhost/${IMAGE_NAME}:raw"
+          rm -f "${RUNNER_TEMP}/raw-oci.tar"
+
+      - name: Generate SBOM
+        if: env.PUBLISH == 'true'
+        env:
+          SYFT_CMD: ${{ steps.setup-syft.outputs.cmd }}
+        run: |
+          # The cataloger is per family: the rpm one finds nothing on a deb
+          # image. `dpkg` is the tag for the installed-package cataloger, where
+          # `deb` selects the one that looks for .deb files on disk.
+          case "$(jq -r '.base.family' "$IMAGE_PLAN")" in
+            debian | ubuntu) cataloger=dpkg ;;
+            *) cataloger=rpm ;;
+          esac
+          mnt="$(sudo podman image mount "localhost/${IMAGE_NAME}:raw")"
+          sudo "$SYFT_CMD" scan "dir:${mnt}" \
+            --source-name "${IMAGE_NAME}" \
+            --select-catalogers "$cataloger" \
+            -o "spdx-json=${RUNNER_TEMP}/sbom.spdx.json"
+          sudo podman image umount "localhost/${IMAGE_NAME}:raw"
+          sudo chown "$(id -u):$(id -g)" "${RUNNER_TEMP}/sbom.spdx.json"
+          du -sh "${RUNNER_TEMP}/sbom.spdx.json"
+          # The image itself is one package, so anything at or below that is a
+          # cataloger that matched nothing: an SBOM attesting to nothing.
+          if [ "$(jq '.packages | length' "${RUNNER_TEMP}/sbom.spdx.json")" -le 1 ]; then
+            echo "::error::the ${cataloger} cataloger found no packages in this image"
+            exit 1
+          fi
+
+      - name: Reduce the SBOM and add the pinned payloads
+        if: env.PUBLISH == 'true'
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          jq -c '
+            del(.files)
+            | .packages |= map(del(.hasFiles))
+            | .relationships |= map(select(
+                ((.spdxElementId      | startswith("SPDXRef-File-")) or
+                 (.relatedSpdxElement | startswith("SPDXRef-File-"))) | not))
+          ' "${RUNNER_TEMP}/sbom.spdx.json" > "${RUNNER_TEMP}/sbom.packages.spdx.json"
+
+          ./scripts/tect.sh sbom "$TARGET" > "${RUNNER_TEMP}/assets.spdx.json"
+          jq -c --slurpfile add "${RUNNER_TEMP}/assets.spdx.json" '
+            .packages += $add[0].packages
+            | .relationships += $add[0].relationships
+          ' "${RUNNER_TEMP}/sbom.packages.spdx.json" > "${RUNNER_TEMP}/merged.spdx.json"
+          mv "${RUNNER_TEMP}/merged.spdx.json" "${RUNNER_TEMP}/sbom.packages.spdx.json"
+
+          if ! jq -e '
+            (([.SPDXID] + [.packages[].SPDXID]) | map({key:., value:true}) | from_entries) as $ids
+            | [.relationships[] | select(($ids[.spdxElementId] // false | not)
+                                      or ($ids[.relatedSpdxElement] // false | not))] | length == 0
+          ' "${RUNNER_TEMP}/sbom.packages.spdx.json" > /dev/null; then
+            echo "::error::filtered SBOM references SPDX ids it does not define"
+            exit 1
+          fi
+
+          bytes="$(wc -c < "${RUNNER_TEMP}/sbom.packages.spdx.json")"
+          if [ "$bytes" -gt 94371840 ]; then
+            echo "::error::package SBOM is ${bytes} bytes; over ~90MB it exceeds cosign's attachment limit once encoded"
+            exit 1
+          fi
+          echo "packages: $(jq '.packages | length' "${RUNNER_TEMP}/sbom.packages.spdx.json")" \
+            "(including $(jq '.packages | length' "${RUNNER_TEMP}/assets.spdx.json") pinned payloads)," \
+            "${bytes} bytes"
+
+      - name: Upload file-level SBOM
+        if: env.PUBLISH == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom-${{ env.IMAGE_NAME }}
+          path: ${{ runner.temp }}/sbom.spdx.json
+          retention-days: 30
+
+      - name: Rechunk image
+        id: rechunk
+        if: env.PUBLISH == 'true' && env.RECHUNK == 'true'
+        run: |
+          sudo podman run --rm --privileged ${{ steps.runtime.outputs.flag }} \
+            --volume /var/lib/containers:/var/lib/containers \
+            "localhost/${IMAGE_NAME}:raw" \
+            rpm-ostree compose build-chunked-oci \
+            --bootc --max-layers 127 --format-version=2 \
+            --from "localhost/${IMAGE_NAME}:raw" \
+            --output "containers-storage:localhost/${IMAGE_NAME}:chunked"
+          echo "==> Disk at peak (raw + chunked both present)"
+          df -h /
+          sudo podman rmi "localhost/${IMAGE_NAME}:raw"
+          echo "tag=chunked" >> "$GITHUB_OUTPUT"
+
+      - name: Login to GitHub Container Registry (root)
+        if: env.PUBLISH == 'true'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" \
+            | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Push image
+        id: push
+        if: env.PUBLISH == 'true'
+        env:
+          SOURCE_TAG: ${{ steps.rechunk.outputs.tag || 'raw' }}
+        run: |
+          digest=""
+          while IFS= read -r tag; do
+            [ -n "$tag" ] || continue
+            if [ -z "$digest" ]; then
+              sudo skopeo copy --retry-times 5 \
+                "containers-storage:localhost/${IMAGE_NAME}:${SOURCE_TAG}" \
+                "docker://${tag}" --digestfile "${RUNNER_TEMP}/digestfile"
+              digest="$(cat "${RUNNER_TEMP}/digestfile")"
+            else
+              sudo skopeo copy --retry-times 5 \
+                "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}@${digest}" \
+                "docker://${tag}"
+            fi
+          done <<< "${{ steps.metadata.outputs.tags }}"
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Report disk usage
+        if: env.PUBLISH == 'true'
+        run: |
+          echo "==> Disk after push"
+          df -h /
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        if: env.PUBLISH == 'true'
+        with:
+          cosign-release: 'v2.6.3'
+
+      - name: Sign container image
+        if: env.PUBLISH == 'true'
+        run: |
+          IMAGE_FULL="${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}"
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY \
+            "${IMAGE_FULL}@${{ steps.push.outputs.digest }}"
+        env:
+          COSIGN_EXPERIMENTAL: false
+          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Attest SBOM
+        if: env.PUBLISH == 'true'
+        run: |
+          IMAGE_FULL="${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}"
+          cosign attest --key env://COSIGN_PRIVATE_KEY \
+            --tlog-upload=false --timeout=10m \
+            --type spdxjson --predicate "${RUNNER_TEMP}/sbom.packages.spdx.json" \
+            "${IMAGE_FULL}@${{ steps.push.outputs.digest }}"
+        env:
+          COSIGN_EXPERIMENTAL: false
+          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Record the digest for the scan
+        if: env.PUBLISH == 'true'
+        run: |
+          set -euo pipefail
+          echo "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}" \
+            > "${RUNNER_TEMP}/digest.txt"
+
+      # Named for what it publishes as, not for the target: a target name holds
+      # the flavour after a slash, which is not a legal artifact name.
+      - name: Upload the digest
+        if: env.PUBLISH == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: digest-${{ env.IMAGE_NAME }}
+          path: ${{ runner.temp }}/digest.txt
+          retention-days: 1
+
+      - name: Verify signature and attestation
+        if: env.PUBLISH == 'true'
+        run: |
+          IMAGE_DIGEST="${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}"
+          module="$(jq -r '.provides_files["/etc/pki/containers/cosign.pub"] // ""' "$TARGET_PLAN")"
+          key="modules/${module}/files/etc/pki/containers/cosign.pub"
+          [ -s "$key" ] || { echo "no module provides a cosign key" >&2; exit 1; }
+          cosign verify --key "$key" --insecure-ignore-tlog=true \
+            "${IMAGE_DIGEST}" > /dev/null
+          cosign verify-attestation --key "$key" --type spdxjson \
+            --insecure-ignore-tlog=true "${IMAGE_DIGEST}" > /dev/null
+
+
+  scan:
+    needs: [checksums, compute-matrix, build_push]
+    name: Scan the claims (${{ matrix.target }})
+    runs-on: ubuntu-24.04
+    if: github.event_name != 'pull_request'
+
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.compute-matrix.outputs.targets) }}
+      fail-fast: false
+
+    permissions:
+      contents: read
+      # The attestations this job writes are pushed beside the image.
+      packages: write
+      id-token: write
+      attestations: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ needs.checksums.outputs.ref }}
+
+      - name: What this target claims
+        id: claims
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          plan=generated/plan.json
+          ./scripts/scan.sh claims "$plan" "$TARGET" > "${RUNNER_TEMP}/claims.txt"
+          count="$(wc -l < "${RUNNER_TEMP}/claims.txt")"
+          {
+            echo "count=${count}"
+            echo "enforce=$(./scripts/scan.sh enforced "$plan")"
+            echo "published=$(jq -r --arg t "$TARGET" '
+              .images[].targets[] | select(.name == $t) | .published' "$plan")"
+          } >> "$GITHUB_OUTPUT"
+          if [ "$count" -eq 0 ]; then
+            echo "No module in ${TARGET} declares \`satisfies\`, so there is nothing to scan." \
+              >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Download the digest
+        if: steps.claims.outputs.count != '0'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: digest-${{ steps.claims.outputs.published }}
+          path: ${{ runner.temp }}
+
+      - name: Split the digest
+        if: steps.claims.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          ref="$(cat "${RUNNER_TEMP}/digest.txt")"
+          {
+            echo "IMAGE_REF=${ref}"
+            echo "SUBJECT_NAME=${ref%@*}"
+            echo "SUBJECT_DIGEST=${ref##*@}"
+          } >> "$GITHUB_ENV"
+
+      - name: Install openscap and the SSG content
+        if: steps.claims.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            openscap-utils ssg-base ssg-debian ssg-nondebian
+
+      - name: Scan the image
+        if: steps.claims.outputs.count != '0'
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          # The content is per family, and picking the first file on disk would
+          # scan a Fedora image against Debian rules and call every claim false.
+          family="$(jq -r --arg t "$TARGET" '
+            .images[] | select([.targets[].name] | index($t)) | .base.family
+          ' generated/plan.json)"
+          case "$family" in
+            fedora)
+              content=ssg-fedora-ds.xml
+              installer="dnf -y install openscap-scanner"
+              ;;
+            debian)
+              content=ssg-debian12-ds.xml
+              installer="apt-get update && apt-get install -y openscap-scanner"
+              ;;
+            ubuntu)
+              content=ssg-ubuntu2404-ds.xml
+              installer="apt-get update && apt-get install -y openscap-scanner"
+              ;;
+            *) echo "::error::no SSG content is known for the ${family} family"; exit 1 ;;
+          esac
+          datastream="/usr/share/xml/scap/ssg/content/${content}"
+          [ -s "$datastream" ] || { echo "::error::${datastream} is not installed"; exit 1; }
+          echo "DATASTREAM=${datastream}" >> "$GITHUB_ENV"
+
+          sudo podman pull "$IMAGE_REF"
+          # The scanner runs inside the image, not over its mounted rootfs: a
+          # chroot scan reads the runner's rpm database path, a bootc image
+          # keeps an empty /var and its database under /usr, and the content
+          # then decides the target is not Fedora and skips every rule. What
+          # the scanner installs is in the container it measures, never in the
+          # published image.
+          #
+          # No profile: the declared rules are what is being checked, so every
+          # rule is evaluated and the claims are compared against the results.
+          # oscap exits non-zero whenever any rule fails, which is expected.
+          cp "$datastream" "${RUNNER_TEMP}/ds.xml"
+          sudo podman run --rm --entrypoint "" \
+            -v "${RUNNER_TEMP}:/scan:z" "$IMAGE_REF" \
+            sh -c "${installer} > /dev/null && oscap xccdf eval \
+              --profile '(all)' --results-arf /scan/arf.xml /scan/ds.xml" || true
+          [ -s "${RUNNER_TEMP}/arf.xml" ] || { echo "::error::the scan wrote no report"; exit 1; }
+          sudo chown "$(id -u):$(id -g)" "${RUNNER_TEMP}/arf.xml"
+
+      - name: Compare the claims to the results
+        if: steps.claims.outputs.count != '0'
+        env:
+          TARGET: ${{ matrix.target }}
+          ENFORCE: ${{ steps.claims.outputs.enforce }}
+        run: |
+          set -euo pipefail
+          plan=generated/plan.json
+          arf="${RUNNER_TEMP}/arf.xml"
+          bad=0
+          {
+            echo "## Declared coverage, measured"
+            echo
+            echo "| Module | Benchmark | Rule | Result |"
+            echo "| --- | --- | --- | --- |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          while IFS='|' read -r module benchmark rule; do
+            [ -n "$rule" ] || continue
+            if ! id="$(./scripts/scan.sh rule-id "$DATASTREAM" "$rule" 2>/dev/null)"; then
+              echo "| ${module} | ${benchmark} | ${rule} | **maps to nothing** |" \
+                >> "$GITHUB_STEP_SUMMARY"
+              echo "::error file=modules/${module}/module.kdl::${benchmark} ${rule} maps to no rule in the datastream. The declaration is wrong, not the image."
+              bad=1
+              continue
+            fi
+            outcome="$(./scripts/scan.sh result "$arf" "$id")"
+            echo "| ${module} | ${benchmark} | ${rule} | ${outcome} |" >> "$GITHUB_STEP_SUMMARY"
+            [ "$outcome" = "fail" ] || continue
+
+            # A claim whose files another module replaced is a composition
+            # failure. The claimant is honest and the image is not compliant.
+            lost="$(./scripts/scan.sh blame "$plan" "$TARGET" "$module")"
+            if [ -n "$lost" ]; then
+              while IFS='|' read -r path by; do
+                [ -n "$path" ] || continue
+                echo "::error::${module} claims ${benchmark} ${rule} and the image fails it, but ${by} owns the final ${path}. The claim is not contradicted; this composition defeats it."
+              done <<< "$lost"
+            else
+              echo "::error file=modules/${module}/module.kdl::${module} claims ${benchmark} ${rule} and the image fails it."
+            fi
+            bad=1
+          done < "${RUNNER_TEMP}/claims.txt"
+
+          if [ "$bad" -eq 0 ]; then
+            echo "Every declared rule passed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ "$ENFORCE" = "true" ]; then
+            echo "::error::audit { enforce #true } makes this fatal."
+            exit 1
+          fi
+          echo "::warning::the repository does not enforce, so this is reported rather than fatal"
+
+      - name: Install Cosign
+        if: steps.claims.outputs.count != '0'
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        with:
+          cosign-release: 'v2.6.3'
+
+      - name: Login to GitHub Container Registry
+        if: steps.claims.outputs.count != '0'
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attest the scan report
+        if: steps.claims.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          # cosign takes a JSON predicate and the report is XML, so it travels
+          # gzipped and base64 encoded inside one.
+          gzip -9 -c "${RUNNER_TEMP}/arf.xml" | base64 -w0 > "${RUNNER_TEMP}/arf.b64"
+          jq -n --rawfile arf "${RUNNER_TEMP}/arf.b64" \
+            '{encoding: "gzip+base64", arf: $arf}' > "${RUNNER_TEMP}/arf.json"
+          cosign attest --key env://COSIGN_PRIVATE_KEY \
+            --tlog-upload=false --timeout=10m \
+            --type https://tectonic-os.github.io/attestations/arf/v1 \
+            --predicate "${RUNNER_TEMP}/arf.json" \
+            "$IMAGE_REF"
+        env:
+          COSIGN_EXPERIMENTAL: false
+          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      # It stays in GitHub's attestation store, where `gh attestation verify`
+      # reads it. Pushed to the registry it lands on the referrers fallback
+      # tag, which `cosign verify-attestation --key` also reads, and a keyless
+      # signature there makes every key verification on the digest fail.
+      - name: Attest the commit that built it
+        if: steps.claims.outputs.count != '0'
+        uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
+        with:
+          subject-name: ${{ env.SUBJECT_NAME }}
+          subject-digest: ${{ env.SUBJECT_DIGEST }}
+          push-to-registry: false
+
+      - name: Verify both predicates are on the digest
+        if: steps.claims.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          plan=generated/plan.json
+          module="$(jq -r --arg t "$TARGET" '
+            .images[].targets[] | select(.name == $t)
+            | .provides_files["/etc/pki/containers/cosign.pub"] // ""' "$plan")"
+          key="modules/${module}/files/etc/pki/containers/cosign.pub"
+          [ -s "$key" ] || { echo "::error::no module provides a cosign key" >&2; exit 1; }
+          cosign verify-attestation --key "$key" --insecure-ignore-tlog=true \
+            --type https://tectonic-os.github.io/attestations/arf/v1 "$IMAGE_REF" > /dev/null
+          cosign verify-attestation --key "$key" --insecure-ignore-tlog=true \
+            --type spdxjson "$IMAGE_REF" > /dev/null
+        env:
+          TARGET: ${{ matrix.target }}

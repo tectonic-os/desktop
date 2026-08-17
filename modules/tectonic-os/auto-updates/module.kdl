@@ -1,0 +1,6 @@
+description "Staged bootc auto-update timer"
+
+supports "fedora"
+
+requires "build-environment"
+requires "signature-policy"

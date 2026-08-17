@@ -1,0 +1,115 @@
+{
+  "image": "desktop",
+  "capabilities": [
+    {
+      "name": "/etc/pki/containers/cosign.pub",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/signature-policy",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/libexec/grub2-os-prober-regen",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/bootloader",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "build-environment",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/fedora-family",
+      "required_by": [
+        "tectonic-os/auto-updates",
+        "tectonic-os/hardened-malloc"
+      ],
+      "after": []
+    },
+    {
+      "name": "flatpak",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/flatpak",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "goojust",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/goojust",
+      "required_by": [
+        "tectonic-os/power-just-scripts"
+      ],
+      "after": []
+    },
+    {
+      "name": "hardened-malloc",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/hardened-malloc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "initramfs-generation",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "just",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/just",
+      "required_by": [
+        "tectonic-os/system-just-scripts",
+        "tectonic-os/goojust"
+      ],
+      "after": []
+    },
+    {
+      "name": "mac-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [
+        "tectonic-os/fedora-family"
+      ],
+      "after": []
+    },
+    {
+      "name": "plasma-desktop",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/kde-desktop",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "rechunking",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "signature-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/signature-policy",
+      "required_by": [
+        "tectonic-os/auto-updates"
+      ],
+      "after": []
+    }
+  ],
+  "overrides": [],
+  "suppressed": []
+}

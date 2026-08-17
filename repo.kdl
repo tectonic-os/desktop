@@ -1,0 +1,14 @@
+schema-version 1
+
+// renovate: datasource=github-releases depName=tectonic-os/tectonic
+tect-version "0.2.1"
+
+sources {
+    tectonic-os {
+        pin {
+            unpinned "This is the trusted source for modules"
+            version "main"
+            url "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz"
+        }
+    }
+}

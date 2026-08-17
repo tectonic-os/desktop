@@ -1,0 +1,737 @@
+{
+  "schema_version": 1,
+  "default_image": "desktop",
+  "default_image_name": "Desktop",
+  "pr_image": "desktop",
+  "default_target": "desktop/none",
+  "default_published": "desktop",
+  "pr_target": "desktop/none",
+  "pr_published": "desktop",
+  "ungated_target": "desktop/none",
+  "ungated_published": "desktop",
+  "cache_image": "desktop-cache",
+  "workflows": [
+    {
+      "file": "base-sig-probe.yml",
+      "enabled": true
+    },
+    {
+      "file": "build-disk.yml",
+      "enabled": true
+    },
+    {
+      "file": "build.yml",
+      "enabled": true
+    },
+    {
+      "file": "cleanup-registry.yml",
+      "enabled": true
+    },
+    {
+      "file": "kernel-freshness.yml",
+      "enabled": true
+    },
+    {
+      "file": "reconcile-workflows.yml",
+      "enabled": true
+    },
+    {
+      "file": "smoke-test.yml",
+      "enabled": true
+    }
+  ],
+  "audit": {
+    "enforce": false
+  },
+  "remotes": [],
+  "assets": [
+    {
+      "module": "tectonic-os/goojust",
+      "name": "goojust",
+      "manifest": "modules/tectonic-os/goojust/module.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/goojust/releases/download/v{version}/goojust-v{version}-x86_64-linux-gnu.tar.gz",
+        "selector": "0.1.5",
+        "verifier": "b5555c822de33e74793d43d99df27adaebc9f4be08dc956e8d7cbfb2a5121375",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "sidecar",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/goojust/releases/download/v0.1.5/goojust-v0.1.5-x86_64-linux-gnu.tar.gz"
+      }
+    }
+  ],
+  "images": [
+    {
+      "id": "desktop",
+      "name": "Desktop",
+      "pretty_name": "",
+      "file": "./desktop.image.kdl",
+      "url": "https://github.com/tectonic-os/desktop",
+      "issues_url": "https://github.com/tectonic-os/desktop/issues",
+      "description": "A KDE Plasma workstation on fedora-bootc",
+      "keywords": [
+        "bootc",
+        "fedora",
+        "kde",
+        "plasma",
+        "desktop"
+      ],
+      "logo_url": "https://github.com/tectonic-os.png",
+      "base": {
+        "image": "quay.io/fedora/fedora-bootc:44",
+        "family": "fedora",
+        "signed": false,
+        "provides": [
+          "rechunking",
+          "initramfs-generation",
+          "mac-policy"
+        ],
+        "provides_files": []
+      },
+      "flavours": [],
+      "default_flavour": null,
+      "targets": [
+        {
+          "name": "desktop/none",
+          "image": "desktop",
+          "flavour": null,
+          "published": "desktop",
+          "default": true,
+          "pr": true,
+          "siblings": [],
+          "modules": [
+            {
+              "path": "tectonic-os/fedora-family",
+              "dir": "tectonic-os/fedora-family",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "The Fedora base family: the build environment every layer runs in, and the root filesystem work that closes it",
+              "options": {},
+              "provides": [
+                "build-environment"
+              ],
+              "requires": [
+                "mac-policy"
+              ],
+              "provenance": {
+                "content": "be3d77e942f322d8ecf82805f3db1af39fb60f4ac412931614c99360c84c7aca",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "be3d77e942f322d8ecf82805f3db1af39fb60f4ac412931614c99360c84c7aca",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/just",
+              "dir": "tectonic-os/just",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "The just command runner and the system justfile every module's recipes are collected into",
+              "options": {},
+              "provides": [
+                "just"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "7ab5a9e77516c13165d6406b6dff2b7cc7dabe197e1b5051ed30587d7e7238fc",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "7ab5a9e77516c13165d6406b6dff2b7cc7dabe197e1b5051ed30587d7e7238fc",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/bootloader",
+              "dir": "tectonic-os/bootloader",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "GRUB dual boot discovery, so another installed OS shows up in the boot menu",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "0cf2564a17f2cc6515cfa1d7e331225f1f2601cc0b5a6f174e94ba1b2c4fe5d0",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "0cf2564a17f2cc6515cfa1d7e331225f1f2601cc0b5a6f174e94ba1b2c4fe5d0",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/signature-policy",
+              "dir": "tectonic-os/signature-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Sigstore signature verification for the image's own updates",
+              "options": {},
+              "provides": [
+                "signature-policy"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "ce194aadd57fd4d976fa0eb56ce519e3c4a0c7d9c70a4ff714767a8b5f9ca8f0",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "ce194aadd57fd4d976fa0eb56ce519e3c4a0c7d9c70a4ff714767a8b5f9ca8f0",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/auto-updates",
+              "dir": "tectonic-os/auto-updates",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Staged bootc auto-update timer",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment",
+                "signature-policy"
+              ],
+              "provenance": {
+                "content": "4cfbd5e78d5e8b85933ef302a879180b29bae88d5c1f6015eeec44b05fc034f2",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "4cfbd5e78d5e8b85933ef302a879180b29bae88d5c1f6015eeec44b05fc034f2",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/system-just-scripts",
+              "dir": "tectonic-os/system-just-scripts",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "System maintenance recipes, collected into the system justfile",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "just"
+              ],
+              "provenance": {
+                "content": "a6129d5dc5f178f993f865187e07ff3b05b399e51cd2e6cab7ff74286bc1e010",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "a6129d5dc5f178f993f865187e07ff3b05b399e51cd2e6cab7ff74286bc1e010",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/flatpak",
+              "dir": "tectonic-os/flatpak",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Flatpak client, first-boot install of the default app set, and a daily update timer",
+              "options": {},
+              "provides": [
+                "flatpak"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "0082f7604b47a01031e77c4ceaa6180a0d4108488a9679cfef5c60768bf6fc70",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "0082f7604b47a01031e77c4ceaa6180a0d4108488a9679cfef5c60768bf6fc70",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/brew",
+              "dir": "tectonic-os/brew",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Homebrew, set up at first login, with a PATH shim for every shell",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "e45a123b4ef0238edd5a3198bf8e4c3af9c3c67f465b63c94c078e6dc2b5ee46",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "e45a123b4ef0238edd5a3198bf8e4c3af9c3c67f465b63c94c078e6dc2b5ee46",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/cli-tools",
+              "dir": "tectonic-os/cli-tools",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Traditional CLI utilities: tmux, htop, rsync, vim and friends",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "42eaa0256ae5c8bf7e44502353b4728abb0b44b604dbefbd7c0edb382adeb3eb",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "42eaa0256ae5c8bf7e44502353b4728abb0b44b604dbefbd7c0edb382adeb3eb",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/coredumps",
+              "dir": "tectonic-os/coredumps",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Coredump lockdown: no storage, no size, no rlimit",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "e67c0e92164b48c468f018ff92d44bad2e9381123dc3b535dba90dfa845ee3ac",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "e67c0e92164b48c468f018ff92d44bad2e9381123dc3b535dba90dfa845ee3ac",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": [
+                {
+                  "benchmark": "pci-dss",
+                  "rules": [
+                    "Req-3.2"
+                  ]
+                }
+              ]
+            },
+            {
+              "path": "tectonic-os/login-policy",
+              "dir": "tectonic-os/login-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Login policy: no sshd, faillock lockout, password quality, rescue sulogin",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "4e31194a2045da4ab4eee1bfe2b8063ee002b4825cd07f9326eddb4017067e90",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "4e31194a2045da4ab4eee1bfe2b8063ee002b4825cd07f9326eddb4017067e90",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/hardened-malloc",
+              "dir": "tectonic-os/hardened-malloc",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "GrapheneOS hardened_malloc, preloaded system wide",
+              "options": {},
+              "provides": [
+                "hardened-malloc"
+              ],
+              "requires": [
+                "build-environment"
+              ],
+              "provenance": {
+                "content": "f467deff3b311e4e52ee424e3d48380dc012c10934c03f71bb61f198f957b098",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "f467deff3b311e4e52ee424e3d48380dc012c10934c03f71bb61f198f957b098",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/sudo-hardening",
+              "dir": "tectonic-os/sudo-hardening",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "sudo policy hardening: no session reuse, restricted environment, tty required",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "e10224e8f7d1e27c2b5da17bec766885c757670fe476475a33827d691e3d28e1",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "e10224e8f7d1e27c2b5da17bec766885c757670fe476475a33827d691e3d28e1",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/kde-desktop",
+              "dir": "tectonic-os/kde-desktop",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "KDE Plasma desktop and the application set it ships with",
+              "options": {},
+              "provides": [
+                "plasma-desktop"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "9a2af2327b77cdf5fe05bc9ad6432ffd335002d8d879df933e1c63dd58f31131",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "9a2af2327b77cdf5fe05bc9ad6432ffd335002d8d879df933e1c63dd58f31131",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/goojust",
+              "dir": "tectonic-os/goojust",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "goojust, the OS TUI over the system justfile, with the fastfetch it opens on",
+              "options": {},
+              "provides": [
+                "goojust"
+              ],
+              "requires": [
+                "just"
+              ],
+              "provenance": {
+                "content": "1f261f0099f75792d945f120fbdd4dd4718b23efe0368f0ee9933ff8b8a6065a",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "1f261f0099f75792d945f120fbdd4dd4718b23efe0368f0ee9933ff8b8a6065a",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/power-just-scripts",
+              "dir": "tectonic-os/power-just-scripts",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Power and battery recipes for the goojust menu, which they prompt through",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "goojust"
+              ],
+              "provenance": {
+                "content": "dbe5724d4c69ef4bc738043656885ea6451e0811d0fe198b361786d403c440f1",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "dbe5724d4c69ef4bc738043656885ea6451e0811d0fe198b361786d403c440f1",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            }
+          ],
+          "suppressed": [],
+          "secrets": [],
+          "contract_files": [
+            "/usr/libexec/grub2-os-prober-regen",
+            "/etc/pki/containers/cosign.pub"
+          ],
+          "verify_exceptions": [
+            {
+              "class": "man-page-missing",
+              "unit": "plasmalogin.service"
+            }
+          ],
+          "assets": [
+            {
+              "module": "tectonic-os/goojust",
+              "name": "goojust",
+              "manifest": "modules/tectonic-os/goojust/module.kdl",
+              "pin": {
+                "locator": "https://github.com/tectonic-os/goojust/releases/download/v{version}/goojust-v{version}-x86_64-linux-gnu.tar.gz",
+                "selector": "0.1.5",
+                "verifier": "b5555c822de33e74793d43d99df27adaebc9f4be08dc956e8d7cbfb2a5121375",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "sidecar",
+                "path": null,
+                "resolved": "https://github.com/tectonic-os/goojust/releases/download/v0.1.5/goojust-v0.1.5-x86_64-linux-gnu.tar.gz"
+              }
+            }
+          ],
+          "provides_files": {
+            "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
+          "overlay_files": {
+            "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardened-malloc",
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
+            "/etc/profile.d/goojust.sh": "tectonic-os/goojust",
+            "/etc/profile.d/linuxbrew.sh": "tectonic-os/brew",
+            "/etc/security/faillock.conf": "tectonic-os/login-policy",
+            "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
+            "/etc/security/pwquality.conf": "tectonic-os/login-policy",
+            "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
+            "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/coredumps",
+            "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/coredumps",
+            "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/coredumps",
+            "/usr/lib/systemd/system-generators/coreos-sulogin-force-generator": "tectonic-os/login-policy",
+            "/usr/lib/systemd/system-preset/45-module-flatpak.preset": "tectonic-os/flatpak",
+            "/usr/lib/systemd/system-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
+            "/usr/lib/systemd/system-preset/45-module-login-policy.preset": "tectonic-os/login-policy",
+            "/usr/lib/systemd/system-preset/45-module-updates.preset": "tectonic-os/auto-updates",
+            "/usr/lib/systemd/system/bootc-fetch-apply-updates.service.d/10-override.conf": "tectonic-os/auto-updates",
+            "/usr/lib/systemd/system/bootc-fetch-apply-updates.timer.d/10-override.conf": "tectonic-os/auto-updates",
+            "/usr/lib/systemd/system/flatpak-update.service": "tectonic-os/flatpak",
+            "/usr/lib/systemd/system/flatpak-update.timer": "tectonic-os/flatpak",
+            "/usr/lib/systemd/system/install-flatpaks.service": "tectonic-os/flatpak",
+            "/usr/lib/systemd/system/plasmalogin-shadow-workaround.service": "tectonic-os/kde-desktop",
+            "/usr/lib/systemd/system/rpm-ostree-countme.service.d/10-override.conf": "tectonic-os/auto-updates",
+            "/usr/lib/systemd/user-preset/45-module-brew.preset": "tectonic-os/brew",
+            "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
+            "/usr/lib/systemd/user/brew-setup.service": "tectonic-os/brew",
+            "/usr/libexec/brew-setup": "tectonic-os/brew",
+            "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
+            "/usr/libexec/install-flatpaks": "tectonic-os/flatpak",
+            "/usr/libexec/plasmalogin-shadow-workaround": "tectonic-os/kde-desktop",
+            "/usr/share/goojust/config.toml": "tectonic-os/goojust",
+            "/usr/share/just/justfile": "tectonic-os/just"
+          },
+          "overlay_overridden": [],
+          "collected_files": {
+            "tectonic-os/auto-updates": [
+              {
+                "file": "justfile.inc",
+                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-auto-updates.part"
+              }
+            ],
+            "tectonic-os/system-just-scripts": [
+              {
+                "file": "justfile.inc",
+                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part"
+              }
+            ],
+            "tectonic-os/hardened-malloc": [
+              {
+                "file": "justfile.inc",
+                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part"
+              }
+            ],
+            "tectonic-os/power-just-scripts": [
+              {
+                "file": "justfile.inc",
+                "staged": "/usr/share/just/justfile.apps.d/0900-tectonic-os-power-just-scripts.part"
+              }
+            ]
+          },
+          "collect_destinations": [
+            "/usr/share/flatpak-defaults/apps.list",
+            "/usr/share/just/justfile.apps"
+          ]
+        }
+      ]
+    }
+  ]
+}

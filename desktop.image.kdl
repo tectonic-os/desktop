@@ -1,0 +1,33 @@
+image {
+    name "Desktop"
+    url "https://github.com/tectonic-os/desktop"
+    issues-url "https://github.com/tectonic-os/desktop/issues"
+    description "A KDE Plasma workstation on fedora-bootc"
+    keywords "bootc" "fedora" "kde" "plasma" "desktop"
+    logo-url "https://github.com/tectonic-os.png"
+
+    base "quay.io/fedora/fedora-bootc:44" {
+        family "fedora"
+        provides "rechunking" "initramfs-generation" "mac-policy"
+        signed #false
+    }
+
+    modules {
+        module "tectonic-os/fedora-family"
+        module "tectonic-os/just"
+        module "tectonic-os/bootloader"
+        module "tectonic-os/signature-policy"
+        module "tectonic-os/auto-updates"
+        module "tectonic-os/system-just-scripts"
+        module "tectonic-os/flatpak"
+        module "tectonic-os/brew"
+        module "tectonic-os/cli-tools"
+        module "tectonic-os/coredumps"
+        module "tectonic-os/login-policy"
+        module "tectonic-os/hardened-malloc"
+        module "tectonic-os/sudo-hardening"
+        module "tectonic-os/kde-desktop"
+        module "tectonic-os/goojust"
+        module "tectonic-os/power-just-scripts"
+    }
+}
