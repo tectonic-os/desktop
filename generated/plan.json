@@ -578,12 +578,12 @@
                 "just"
               ],
               "provenance": {
-                "content": "1f261f0099f75792d945f120fbdd4dd4718b23efe0368f0ee9933ff8b8a6065a",
+                "content": "0f4b467f0befea6a479c6a7f1f97b8e433d1164d0864e1622637dc49cfecefdb",
                 "repo": false,
                 "pin": null,
                 "imported": {
                   "collection": "tectonic-os",
-                  "content": "1f261f0099f75792d945f120fbdd4dd4718b23efe0368f0ee9933ff8b8a6065a",
+                  "content": "0f4b467f0befea6a479c6a7f1f97b8e433d1164d0864e1622637dc49cfecefdb",
                   "pin": {
                     "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
                     "selector": "main",
