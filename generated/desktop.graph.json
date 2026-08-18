@@ -37,16 +37,6 @@
       "after": []
     },
     {
-      "name": "goojust",
-      "kind": "capability",
-      "build_only": false,
-      "provider": "tectonic-os/goojust",
-      "required_by": [
-        "tectonic-os/power-just-scripts"
-      ],
-      "after": []
-    },
-    {
       "name": "hardened-malloc",
       "kind": "capability",
       "build_only": false,
@@ -68,8 +58,7 @@
       "build_only": false,
       "provider": "tectonic-os/just",
       "required_by": [
-        "tectonic-os/system-just-scripts",
-        "tectonic-os/goojust"
+        "tectonic-os/system-just-scripts"
       ],
       "after": []
     },

@@ -158,26 +158,6 @@ RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/kde-desktop,target=/c
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- tectonic-os/goojust ----
-RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/goojust,target=/ctx/modules/tectonic-os/goojust \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/goojust.sh,target=/ctx/module.sh \
-    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
-    --mount=type=cache,target=/var/cache \
-    --mount=type=cache,target=/var/log \
-    --mount=type=tmpfs,target=/tmp \
-    bash /ctx/module.sh
-
-# ---- tectonic-os/power-just-scripts ----
-RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/power-just-scripts,target=/ctx/modules/tectonic-os/power-just-scripts \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/power-just-scripts.sh,target=/ctx/module.sh \
-    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
-    --mount=type=cache,target=/var/cache \
-    --mount=type=cache,target=/var/log \
-    --mount=type=tmpfs,target=/tmp \
-    bash /ctx/module.sh
-
 # ---- flavour gate ----
 ARG FLAVOUR
 

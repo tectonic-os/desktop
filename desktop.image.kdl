@@ -27,7 +27,5 @@ image {
         module "tectonic-os/hardened-malloc"
         module "tectonic-os/sudo-hardening"
         module "tectonic-os/kde-desktop"
-        module "tectonic-os/goojust"
-        module "tectonic-os/power-just-scripts"
     }
 }

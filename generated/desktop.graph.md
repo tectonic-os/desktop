@@ -23,15 +23,11 @@ graph LR
     m11["tectonic-os/hardened-malloc"]
     m12["tectonic-os/sudo-hardening"]
     m13["tectonic-os/kde-desktop"]
-    m14["tectonic-os/goojust"]
-    m15["tectonic-os/power-just-scripts"]
     base -->|"mac-policy"| m0
     m0 -->|"build-environment"| m4
     m0 -->|"build-environment"| m11
     m1 -->|"just"| m5
-    m1 -->|"just"| m14
     m3 -->|"signature-policy"| m4
-    m14 -->|"goojust"| m15
 ```
 
 ## Capabilities
@@ -42,10 +38,9 @@ graph LR
 | `/usr/libexec/grub2-os-prober-regen` | file | `tectonic-os/bootloader` |  |  |
 | `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardened-malloc` |  |
 | `flatpak` | capability | `tectonic-os/flatpak` |  |  |
-| `goojust` | capability | `tectonic-os/goojust` | `tectonic-os/power-just-scripts` |  |
 | `hardened-malloc` | capability | `tectonic-os/hardened-malloc` |  |  |
 | `initramfs-generation` | capability | `base` |  |  |
-| `just` | capability | `tectonic-os/just` | `tectonic-os/system-just-scripts`, `tectonic-os/goojust` |  |
+| `just` | capability | `tectonic-os/just` | `tectonic-os/system-just-scripts` |  |
 | `mac-policy` | capability | `base` | `tectonic-os/fedora-family` |  |
 | `plasma-desktop` | capability | `tectonic-os/kde-desktop` |  |  |
 | `rechunking` | capability | `base` |  |  |

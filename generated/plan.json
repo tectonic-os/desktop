@@ -44,23 +44,7 @@
     "enforce": false
   },
   "remotes": [],
-  "assets": [
-    {
-      "module": "tectonic-os/goojust",
-      "name": "goojust",
-      "manifest": "modules/tectonic-os/goojust/module.kdl",
-      "pin": {
-        "locator": "https://github.com/tectonic-os/goojust/releases/download/v{version}/goojust-v{version}-x86_64-linux-gnu.tar.gz",
-        "selector": "0.1.5",
-        "verifier": "b5555c822de33e74793d43d99df27adaebc9f4be08dc956e8d7cbfb2a5121375",
-        "tracker": "renovate",
-        "reason": null,
-        "from": "sidecar",
-        "path": null,
-        "resolved": "https://github.com/tectonic-os/goojust/releases/download/v0.1.5/goojust-v0.1.5-x86_64-linux-gnu.tar.gz"
-      }
-    }
-  ],
+  "assets": [],
   "images": [
     {
       "id": "desktop",
@@ -562,74 +546,6 @@
                 }
               },
               "satisfies": []
-            },
-            {
-              "path": "tectonic-os/goojust",
-              "dir": "tectonic-os/goojust",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "goojust, the OS TUI over the system justfile, with the fastfetch it opens on",
-              "options": {},
-              "provides": [
-                "goojust"
-              ],
-              "requires": [
-                "just"
-              ],
-              "provenance": {
-                "content": "ea3a9966ffedafaecc1e2c1e547d28fd4442d467eb10bf72e3b5b8099d570520",
-                "repo": false,
-                "pin": null,
-                "imported": {
-                  "collection": "tectonic-os",
-                  "content": "ea3a9966ffedafaecc1e2c1e547d28fd4442d467eb10bf72e3b5b8099d570520",
-                  "pin": {
-                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
-                    "selector": "main",
-                    "verifier": null,
-                    "tracker": "unpinned",
-                    "reason": "This is the trusted source for modules",
-                    "from": "asset",
-                    "path": null,
-                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
-                  }
-                }
-              },
-              "satisfies": []
-            },
-            {
-              "path": "tectonic-os/power-just-scripts",
-              "dir": "tectonic-os/power-just-scripts",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Power and battery recipes for the goojust menu, which they prompt through",
-              "options": {},
-              "provides": [],
-              "requires": [
-                "goojust"
-              ],
-              "provenance": {
-                "content": "dbe5724d4c69ef4bc738043656885ea6451e0811d0fe198b361786d403c440f1",
-                "repo": false,
-                "pin": null,
-                "imported": {
-                  "collection": "tectonic-os",
-                  "content": "dbe5724d4c69ef4bc738043656885ea6451e0811d0fe198b361786d403c440f1",
-                  "pin": {
-                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
-                    "selector": "main",
-                    "verifier": null,
-                    "tracker": "unpinned",
-                    "reason": "This is the trusted source for modules",
-                    "from": "asset",
-                    "path": null,
-                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
-                  }
-                }
-              },
-              "satisfies": []
             }
           ],
           "suppressed": [],
@@ -644,23 +560,7 @@
               "unit": "plasmalogin.service"
             }
           ],
-          "assets": [
-            {
-              "module": "tectonic-os/goojust",
-              "name": "goojust",
-              "manifest": "modules/tectonic-os/goojust/module.kdl",
-              "pin": {
-                "locator": "https://github.com/tectonic-os/goojust/releases/download/v{version}/goojust-v{version}-x86_64-linux-gnu.tar.gz",
-                "selector": "0.1.5",
-                "verifier": "b5555c822de33e74793d43d99df27adaebc9f4be08dc956e8d7cbfb2a5121375",
-                "tracker": "renovate",
-                "reason": null,
-                "from": "sidecar",
-                "path": null,
-                "resolved": "https://github.com/tectonic-os/goojust/releases/download/v0.1.5/goojust-v0.1.5-x86_64-linux-gnu.tar.gz"
-              }
-            }
-          ],
+          "assets": [],
           "provides_files": {
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
@@ -668,7 +568,6 @@
           "overlay_files": {
             "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardened-malloc",
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
-            "/etc/profile.d/goojust.sh": "tectonic-os/goojust",
             "/etc/profile.d/linuxbrew.sh": "tectonic-os/brew",
             "/etc/security/faillock.conf": "tectonic-os/login-policy",
             "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
@@ -696,7 +595,6 @@
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
             "/usr/libexec/install-flatpaks": "tectonic-os/flatpak",
             "/usr/libexec/plasmalogin-shadow-workaround": "tectonic-os/kde-desktop",
-            "/usr/share/goojust/config.toml": "tectonic-os/goojust",
             "/usr/share/just/justfile": "tectonic-os/just"
           },
           "overlay_overridden": [],
@@ -717,12 +615,6 @@
               {
                 "file": "justfile.inc",
                 "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part"
-              }
-            ],
-            "tectonic-os/power-just-scripts": [
-              {
-                "file": "justfile.inc",
-                "staged": "/usr/share/just/justfile.apps.d/0900-tectonic-os-power-just-scripts.part"
               }
             ]
           },
