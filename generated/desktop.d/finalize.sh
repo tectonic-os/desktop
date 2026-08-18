@@ -2,6 +2,17 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
+# ---- /usr/share/flatpak-defaults/apps.list ----
+parts=()
+for part in /usr/share/flatpak-defaults/apps.list.d/0500-tectonic-os-bazaar.part; do
+    [ -f "$part" ] || continue
+    parts+=("$part")
+done
+if [ ${#parts[@]} -gt 0 ]; then
+    cat "${parts[@]}" > /usr/share/flatpak-defaults/apps.list
+fi
+rm -rf /usr/share/flatpak-defaults/apps.list.d
+
 # ---- /usr/share/just/justfile.apps ----
 parts=()
 for part in /usr/share/just/justfile.apps.d/0500-tectonic-os-auto-updates.part /usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part /usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part; do

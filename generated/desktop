@@ -158,8 +158,72 @@ RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/kde-desktop,target=/c
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
+# ---- tectonic-os/bazaar ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/bazaar,target=/ctx/modules/tectonic-os/bazaar \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/bazaar.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/media-codecs ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/media-codecs,target=/ctx/modules/tectonic-os/media-codecs \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/media-codecs.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
 # ---- flavour gate ----
 ARG FLAVOUR
+
+# ---- [dx] ----
+# ---- tectonic-os/dev-tools ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/dev-tools,target=/ctx/modules/tectonic-os/dev-tools \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/dev-tools@dx.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- [dx] ----
+# ---- tectonic-os/podman ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/podman,target=/ctx/modules/tectonic-os/podman \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/podman@dx.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- [dx] ----
+# ---- tectonic-os/libvirt ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/libvirt,target=/ctx/modules/tectonic-os/libvirt \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/libvirt@dx.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- [dx] ----
+# ---- tectonic-os/vscodium ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/vscodium,target=/ctx/modules/tectonic-os/vscodium \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/vscodium@dx.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
 
 # ---- image version ----
 ARG IMAGE_VERSION=dev

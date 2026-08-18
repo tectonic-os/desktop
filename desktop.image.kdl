@@ -12,6 +12,10 @@ image {
         signed #false
     }
 
+    flavours {
+        dx
+    }
+
     modules {
         module "tectonic-os/fedora-family"
         module "tectonic-os/just"
@@ -27,5 +31,14 @@ image {
         module "tectonic-os/hardened-malloc"
         module "tectonic-os/sudo-hardening"
         module "tectonic-os/kde-desktop"
+        module "tectonic-os/bazaar"
+        module "tectonic-os/media-codecs"
+
+        flavour "dx" {
+            module "tectonic-os/dev-tools"
+            module "tectonic-os/podman"
+            module "tectonic-os/libvirt"
+            module "tectonic-os/vscodium"
+        }
     }
 }

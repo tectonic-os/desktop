@@ -18,13 +18,22 @@
       "after": []
     },
     {
+      "name": "bazaar",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/bazaar",
+      "required_by": [],
+      "after": []
+    },
+    {
       "name": "build-environment",
       "kind": "capability",
       "build_only": false,
       "provider": "tectonic-os/fedora-family",
       "required_by": [
         "tectonic-os/auto-updates",
-        "tectonic-os/hardened-malloc"
+        "tectonic-os/hardened-malloc",
+        "tectonic-os/media-codecs"
       ],
       "after": []
     },
@@ -33,7 +42,9 @@
       "kind": "capability",
       "build_only": false,
       "provider": "tectonic-os/flatpak",
-      "required_by": [],
+      "required_by": [
+        "tectonic-os/bazaar"
+      ],
       "after": []
     },
     {
@@ -42,7 +53,10 @@
       "build_only": false,
       "provider": "tectonic-os/hardened-malloc",
       "required_by": [],
-      "after": []
+      "after": [
+        "tectonic-os/libvirt",
+        "tectonic-os/vscodium"
+      ]
     },
     {
       "name": "initramfs-generation",
