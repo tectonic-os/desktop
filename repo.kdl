@@ -1,7 +1,7 @@
 schema-version 1
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
-tect-version "0.2.3"
+tect-version "0.2.4"
 
 sources {
     tectonic-os {
