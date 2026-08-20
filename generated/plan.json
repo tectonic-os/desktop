@@ -490,7 +490,7 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "ecf4e67ec46a6aa34f1765a40169a6e526c8f25d6e04a5b3519ed96d63445d4a",
+                "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -906,13 +906,7 @@
             "/usr/libexec/plasmalogin-shadow-workaround": "tectonic-os/kde-desktop",
             "/usr/share/just/justfile": "tectonic-os/just"
           },
-          "overlay_overridden": [
-            {
-              "path": "/etc/pki/containers/cosign.pub",
-              "module": "tectonic-os/signature-policy",
-              "by": "tectonic-os/signature-policy"
-            }
-          ],
+          "overlay_overridden": [],
           "collected_files": {
             "tectonic-os/auto-updates": [
               {
@@ -1058,7 +1052,7 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "ecf4e67ec46a6aa34f1765a40169a6e526c8f25d6e04a5b3519ed96d63445d4a",
+                "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1589,13 +1583,7 @@
             "/usr/libexec/plasmalogin-shadow-workaround": "tectonic-os/kde-desktop",
             "/usr/share/just/justfile": "tectonic-os/just"
           },
-          "overlay_overridden": [
-            {
-              "path": "/etc/pki/containers/cosign.pub",
-              "module": "tectonic-os/signature-policy",
-              "by": "tectonic-os/signature-policy"
-            }
-          ],
+          "overlay_overridden": [],
           "collected_files": {
             "tectonic-os/auto-updates": [
               {
