@@ -1,7 +1,0 @@
-description "Bazaar, the Flatpak storefront"
-
-supports "fedora"
-
-requires "flatpak"
-
-provides "bazaar"

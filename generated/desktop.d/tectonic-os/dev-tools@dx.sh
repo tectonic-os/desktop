@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/dev-tools
+MODDIR=/ctx/modules/.remote/tectonic-os/dev-tools
 export MODDIR
 
 if [ "${FLAVOUR:-}" != "dx" ]; then

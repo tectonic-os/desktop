@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/coredumps
+MODDIR=/ctx/modules/.remote/tectonic-os/coredumps
 export MODDIR
 
-cp -rT /ctx/modules/tectonic-os/coredumps/files /
+cp -rT /ctx/modules/.remote/tectonic-os/coredumps/files /

@@ -2,12 +2,12 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/hardened-malloc
+MODDIR=/ctx/modules/.remote/tectonic-os/hardened-malloc
 export MODDIR
 
-source /ctx/modules/tectonic-os/hardened-malloc/module.sh
+source /ctx/modules/.remote/tectonic-os/hardened-malloc/module.sh
 
-cp -rT /ctx/modules/tectonic-os/hardened-malloc/files /
+cp -rT /ctx/modules/.remote/tectonic-os/hardened-malloc/files /
 
 mkdir -p /usr/share/just/justfile.apps.d
-cat /ctx/modules/tectonic-os/hardened-malloc/justfile.inc > /usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part
+cat /ctx/modules/.remote/tectonic-os/hardened-malloc/justfile.inc > /usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part

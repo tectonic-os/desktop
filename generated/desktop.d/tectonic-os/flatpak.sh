@@ -2,9 +2,9 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/flatpak
+MODDIR=/ctx/modules/.remote/tectonic-os/flatpak
 export MODDIR
 
 dnf5 install -y flatpak
 
-cp -rT /ctx/modules/tectonic-os/flatpak/files /
+cp -rT /ctx/modules/.remote/tectonic-os/flatpak/files /

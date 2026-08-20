@@ -25,16 +25,16 @@ fi
 rm -rf /usr/share/just/justfile.apps.d
 
 # ---- tectonic-os/fedora-family ----
-MODDIR=/ctx/modules/tectonic-os/fedora-family
+MODDIR=/ctx/modules/.remote/tectonic-os/fedora-family
 export MODDIR
-source /ctx/modules/tectonic-os/fedora-family/finalize.sh
+source /ctx/modules/.remote/tectonic-os/fedora-family/finalize.sh
 
 # ---- tectonic-os/signature-policy ----
-MODDIR=/ctx/modules/tectonic-os/signature-policy
+MODDIR=/ctx/modules/.remote/tectonic-os/signature-policy
 export MODDIR
-source /ctx/modules/tectonic-os/signature-policy/finalize.sh
+source /ctx/modules/.remote/tectonic-os/signature-policy/finalize.sh
 
 # ---- tectonic-os/auto-updates ----
-MODDIR=/ctx/modules/tectonic-os/auto-updates
+MODDIR=/ctx/modules/.remote/tectonic-os/auto-updates
 export MODDIR
-source /ctx/modules/tectonic-os/auto-updates/finalize.sh
+source /ctx/modules/.remote/tectonic-os/auto-updates/finalize.sh

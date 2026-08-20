@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/libvirt
+MODDIR=/ctx/modules/.remote/tectonic-os/libvirt
 export MODDIR
 
 if [ "${FLAVOUR:-}" != "dx" ]; then
@@ -12,6 +12,6 @@ fi
 
 dnf5 install -y edk2-ovmf libvirt libvirt-nss qemu qemu-img qemu-system-x86-core qemu-user-binfmt qemu-user-static-aarch64 virt-manager virt-v2v virt-viewer
 
-source /ctx/modules/tectonic-os/libvirt/module.sh
+source /ctx/modules/.remote/tectonic-os/libvirt/module.sh
 
-cp -rT /ctx/modules/tectonic-os/libvirt/files /
+cp -rT /ctx/modules/.remote/tectonic-os/libvirt/files /

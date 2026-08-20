@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/vscodium
+MODDIR=/ctx/modules/.remote/tectonic-os/vscodium
 export MODDIR
 
 if [ "${FLAVOUR:-}" != "dx" ]; then
@@ -13,7 +13,7 @@ fi
 if [ -f /etc/yum.repos.d/vscodium.repo ]; then
     echo "repo vscodium is already configured"
 else
-    source /ctx/modules/tectonic-os/vscodium/repo
+    source /ctx/modules/.remote/tectonic-os/vscodium/repo
 fi
 
-source /ctx/modules/tectonic-os/vscodium/module.sh
+source /ctx/modules/.remote/tectonic-os/vscodium/module.sh

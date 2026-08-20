@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/podman
+MODDIR=/ctx/modules/.remote/tectonic-os/podman
 export MODDIR
 
 if [ "${FLAVOUR:-}" != "dx" ]; then
@@ -12,4 +12,4 @@ fi
 
 dnf5 install -y podman-compose podman-machine podman-tui slirp4netns
 
-cp -rT /ctx/modules/tectonic-os/podman/files /
+cp -rT /ctx/modules/.remote/tectonic-os/podman/files /

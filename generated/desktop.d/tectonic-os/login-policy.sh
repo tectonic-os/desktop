@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/login-policy
+MODDIR=/ctx/modules/.remote/tectonic-os/login-policy
 export MODDIR
 
-cp -rT /ctx/modules/tectonic-os/login-policy/files /
+cp -rT /ctx/modules/.remote/tectonic-os/login-policy/files /

@@ -17,28 +17,32 @@ image {
     }
 
     modules {
-        module "tectonic-os/fedora-family"
-        module "tectonic-os/just"
-        module "tectonic-os/bootloader"
-        module "tectonic-os/signature-policy"
-        module "tectonic-os/auto-updates"
-        module "tectonic-os/system-just-scripts"
-        module "tectonic-os/flatpak"
-        module "tectonic-os/brew"
-        module "tectonic-os/cli-tools"
-        module "tectonic-os/coredumps"
-        module "tectonic-os/login-policy"
-        module "tectonic-os/hardened-malloc"
-        module "tectonic-os/sudo-hardening"
-        module "tectonic-os/kde-desktop"
-        module "tectonic-os/bazaar"
-        module "tectonic-os/media-codecs"
+        source "tectonic-os" {
+            module "fedora-family"
+            module "just"
+            module "bootloader"
+            module "signature-policy"
+            module "auto-updates"
+            module "system-just-scripts"
+            module "flatpak"
+            module "brew"
+            module "cli-tools"
+            module "coredumps"
+            module "login-policy"
+            module "hardened-malloc"
+            module "sudo-hardening"
+            module "kde-desktop"
+            module "bazaar"
+            module "media-codecs"
+        }
 
         flavour "dx" {
-            module "tectonic-os/dev-tools"
-            module "tectonic-os/podman"
-            module "tectonic-os/libvirt"
-            module "tectonic-os/vscodium"
+            source "tectonic-os" {
+                module "dev-tools"
+                module "podman"
+                module "libvirt"
+                module "vscodium"
+            }
         }
     }
 }

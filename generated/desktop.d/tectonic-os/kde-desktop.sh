@@ -2,9 +2,9 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/kde-desktop
+MODDIR=/ctx/modules/.remote/tectonic-os/kde-desktop
 export MODDIR
 
-source /ctx/modules/tectonic-os/kde-desktop/module.sh
+source /ctx/modules/.remote/tectonic-os/kde-desktop/module.sh
 
-cp -rT /ctx/modules/tectonic-os/kde-desktop/files /
+cp -rT /ctx/modules/.remote/tectonic-os/kde-desktop/files /

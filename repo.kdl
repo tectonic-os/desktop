@@ -1,7 +1,16 @@
 schema-version 1
+name "Desktop"
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
 tect-version "0.2.4"
+
+workflows at="12:30" {
+    base-sig-probe
+    build
+    build-disk
+    cleanup-registry
+    smoke-test
+}
 
 sources {
     tectonic-os {

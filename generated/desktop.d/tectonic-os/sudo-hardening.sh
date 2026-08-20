@@ -2,7 +2,7 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-MODDIR=/ctx/modules/tectonic-os/sudo-hardening
+MODDIR=/ctx/modules/.remote/tectonic-os/sudo-hardening
 export MODDIR
 
-source /ctx/modules/tectonic-os/sudo-hardening/module.sh
+source /ctx/modules/.remote/tectonic-os/sudo-hardening/module.sh
