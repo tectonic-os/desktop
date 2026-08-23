@@ -10,7 +10,9 @@ if [ "${FLAVOUR:-}" != "dx" ]; then
     exit 0
 fi
 
-dnf5 install -y edk2-ovmf libvirt libvirt-nss qemu qemu-img qemu-system-x86-core qemu-user-binfmt qemu-user-static-aarch64 virt-manager virt-v2v virt-viewer
+source /ctx/lib/family.sh
+
+install_packages 'edk2-ovmf' 'libvirt' 'libvirt-nss' 'qemu' 'qemu-img' 'qemu-system-x86-core' 'qemu-user-binfmt' 'qemu-user-static-aarch64' 'virt-manager' 'virt-v2v' 'virt-viewer'
 
 source /ctx/modules/.remote/tectonic-os/libvirt/module.sh
 

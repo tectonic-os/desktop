@@ -10,4 +10,6 @@ if [ "${FLAVOUR:-}" != "dx" ]; then
     exit 0
 fi
 
-dnf5 install -y direnv git git-credential-libsecret git-delta git-lfs
+source /ctx/lib/family.sh
+
+install_packages 'direnv' 'git' 'git-credential-libsecret' 'git-delta' 'git-lfs'

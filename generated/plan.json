@@ -405,7 +405,7 @@
                 "mac-policy"
               ],
               "provenance": {
-                "content": "be3d77e942f322d8ecf82805f3db1af39fb60f4ac412931614c99360c84c7aca",
+                "content": "97fd2b104fb78dd478cdef92c478dd30f9070d1a827093f94212601b8b99e71f",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -967,7 +967,7 @@
                 "mac-policy"
               ],
               "provenance": {
-                "content": "be3d77e942f322d8ecf82805f3db1af39fb60f4ac412931614c99360c84c7aca",
+                "content": "97fd2b104fb78dd478cdef92c478dd30f9070d1a827093f94212601b8b99e71f",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",

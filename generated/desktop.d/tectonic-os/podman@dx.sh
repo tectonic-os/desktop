@@ -10,6 +10,8 @@ if [ "${FLAVOUR:-}" != "dx" ]; then
     exit 0
 fi
 
-dnf5 install -y podman-compose podman-machine podman-tui slirp4netns
+source /ctx/lib/family.sh
+
+install_packages 'podman-compose' 'podman-machine' 'podman-tui' 'slirp4netns'
 
 cp -rT /ctx/modules/.remote/tectonic-os/podman/files /
