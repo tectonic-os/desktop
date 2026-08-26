@@ -355,7 +355,7 @@
         "desktop"
       ],
       "logo_url": "https://github.com/tectonic-os.png",
-      "conforms": "",
+      "conforms": "standard",
       "base": {
         "image": "quay.io/fedora/fedora-bootc:44",
         "family": "fedora",
@@ -693,7 +693,7 @@
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "4b4f609a7e85a7cccb8b56000d580867e92daf736e4f190fefa4b62f23c41cfa",
+                "content": "cb7106a65bdd8bf0b1c2c6f5e7b382a7f3b7b7715988e371421028f771dc365a",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -707,7 +707,22 @@
                 },
                 "imported": null
               },
-              "satisfies": []
+              "satisfies": [
+                {
+                  "benchmark": "stig",
+                  "rules": [
+                    "CCI-001619",
+                    "CCI-000194",
+                    "CCI-000195"
+                  ]
+                },
+                {
+                  "benchmark": "nist",
+                  "rules": [
+                    "AC-7.1(ii)"
+                  ]
+                }
+              ]
             },
             {
               "path": "tectonic-os/hardened-malloc",
@@ -746,12 +761,12 @@
               "flavour": null,
               "variant": null,
               "remote": "main",
-              "description": "sudo policy hardening: no session reuse, restricted environment, tty required",
+              "description": "sudo policy hardening: own pty, own logfile, short credential cache",
               "options": {},
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "e10224e8f7d1e27c2b5da17bec766885c757670fe476475a33827d691e3d28e1",
+                "content": "b351935c2e9bd3abb12e8e49f14cfe7aec117bef67ddb27568d8ddcc272597fd",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -765,7 +780,14 @@
                 },
                 "imported": null
               },
-              "satisfies": []
+              "satisfies": [
+                {
+                  "benchmark": "pci-dss",
+                  "rules": [
+                    "Req-10.2.5"
+                  ]
+                }
+              ]
             },
             {
               "path": "tectonic-os/kde-desktop",
@@ -780,7 +802,7 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "9a2af2327b77cdf5fe05bc9ad6432ffd335002d8d879df933e1c63dd58f31131",
+                "content": "632c4a76f1ec6fc09903450d2e937a4c3fac6b42c641ea4e1b95fae162e93b5d",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -900,6 +922,7 @@
             "/usr/lib/systemd/user-preset/45-module-brew.preset": "tectonic-os/brew",
             "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/user/brew-setup.service": "tectonic-os/brew",
+            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/login-policy",
             "/usr/libexec/brew-setup": "tectonic-os/brew",
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
             "/usr/libexec/install-flatpaks": "tectonic-os/flatpak",
@@ -1255,7 +1278,7 @@
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "4b4f609a7e85a7cccb8b56000d580867e92daf736e4f190fefa4b62f23c41cfa",
+                "content": "cb7106a65bdd8bf0b1c2c6f5e7b382a7f3b7b7715988e371421028f771dc365a",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1269,7 +1292,22 @@
                 },
                 "imported": null
               },
-              "satisfies": []
+              "satisfies": [
+                {
+                  "benchmark": "stig",
+                  "rules": [
+                    "CCI-001619",
+                    "CCI-000194",
+                    "CCI-000195"
+                  ]
+                },
+                {
+                  "benchmark": "nist",
+                  "rules": [
+                    "AC-7.1(ii)"
+                  ]
+                }
+              ]
             },
             {
               "path": "tectonic-os/hardened-malloc",
@@ -1308,12 +1346,12 @@
               "flavour": null,
               "variant": null,
               "remote": "main",
-              "description": "sudo policy hardening: no session reuse, restricted environment, tty required",
+              "description": "sudo policy hardening: own pty, own logfile, short credential cache",
               "options": {},
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "e10224e8f7d1e27c2b5da17bec766885c757670fe476475a33827d691e3d28e1",
+                "content": "b351935c2e9bd3abb12e8e49f14cfe7aec117bef67ddb27568d8ddcc272597fd",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1327,7 +1365,14 @@
                 },
                 "imported": null
               },
-              "satisfies": []
+              "satisfies": [
+                {
+                  "benchmark": "pci-dss",
+                  "rules": [
+                    "Req-10.2.5"
+                  ]
+                }
+              ]
             },
             {
               "path": "tectonic-os/kde-desktop",
@@ -1342,7 +1387,7 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "9a2af2327b77cdf5fe05bc9ad6432ffd335002d8d879df933e1c63dd58f31131",
+                "content": "632c4a76f1ec6fc09903450d2e937a4c3fac6b42c641ea4e1b95fae162e93b5d",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1575,6 +1620,7 @@
             "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/user/brew-setup.service": "tectonic-os/brew",
             "/usr/lib/sysusers.d/libvirt-workarounds.conf": "tectonic-os/libvirt",
+            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/login-policy",
             "/usr/lib/tmpfiles.d/libvirt-workarounds.conf": "tectonic-os/libvirt",
             "/usr/libexec/add-wheel-users-to-libvirt": "tectonic-os/libvirt",
             "/usr/libexec/brew-setup": "tectonic-os/brew",

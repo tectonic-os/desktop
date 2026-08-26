@@ -1,5 +1,6 @@
 image {
     name "Desktop"
+    conforms "standard"
     url "https://github.com/tectonic-os/desktop"
     issues-url "https://github.com/tectonic-os/desktop/issues"
     description "A KDE Plasma workstation on fedora-bootc"
