@@ -278,6 +278,10 @@ jobs:
           else
             echo "PUBLISH=false" >> "${GITHUB_ENV}"
           fi
+          if [ "${{ github.event_name }}" != "schedule" ] \
+             && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "PUBLISH=false" >> "${GITHUB_ENV}"
+          fi
 
       - name: Select a working container runtime
         id: runtime
@@ -648,7 +652,7 @@ jobs:
     needs: [checksums, compute-matrix, build_push]
     name: Scan the claims (${{ matrix.target }})
     runs-on: ubuntu-24.04
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'schedule'
 
     strategy:
       matrix:
