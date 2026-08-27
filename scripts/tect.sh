@@ -8,10 +8,26 @@ die() {
 }
 
 # One declared value out of the manifest, and nothing derived from it.
-version="$(sed -n 's/^tect-version "\(.*\)"$/\1/p' repo.kdl)"
-[ -n "$version" ] || die "repo.kdl declares no tect-version"
+line="$(sed -n '/^[[:space:]]*tect-version[[:space:]]/p' repo.kdl)"
+if [[ "$line" =~ ^[[:space:]]*tect-version[[:space:]]+\"([^\"]+)\"(.*)$ ]]; then
+    version="${BASH_REMATCH[1]}"
+    rest="${BASH_REMATCH[2]%%//*}"
+else
+    die "repo.kdl declares no readable tect-version"
+fi
 
-bin="${TECT_BIN:-out/tect-${version}}"
+sha256=""
+if [[ "$rest" =~ (^|[[:space:]])sha256[[:space:]]*= ]]; then
+    if [[ "$rest" =~ (^|[[:space:]])sha256[[:space:]]*=[[:space:]]*\"([^\"]*)\" ]]; then
+        sha256="${BASH_REMATCH[2]}"
+    else
+        die "repo.kdl declares no readable sha256 for tect-version"
+    fi
+    [[ "$sha256" =~ ^[0-9a-f]{64}$ ]] \
+        || die "repo.kdl declares a malformed sha256 for tect-version"
+fi
+
+bin="${TECT_BIN:-out/tect-${version}${sha256:+-${sha256}}}"
 
 if [ ! -x "$bin" ]; then
     asset="tect-v${version}-x86_64-linux-musl.tar.gz"
@@ -23,11 +39,20 @@ if [ ! -x "$bin" ]; then
 
     curl -fsSL --retry 3 --retry-all-errors -o "${tmp}/${asset}" "$url" \
         || die "cannot fetch ${url}"
-    curl -fsSL --retry 3 --retry-all-errors -o "${tmp}/sha256" "${url}.sha256" \
-        || die "cannot fetch ${url}.sha256"
-    (cd "$tmp" && printf '%s  %s\n' "$(cat sha256)" "$asset" \
-        | sha256sum --check --status) \
-        || die "${asset} does not match its published checksum"
+    # A declared sha256 is the verifier; the checksum fetched beside the
+    # tarball is the fallback for a repository declaring none, and proves
+    # the download and nothing more.
+    if [ -n "$sha256" ]; then
+        (cd "$tmp" && printf '%s  %s\n' "$sha256" "$asset" \
+            | sha256sum --check --status) \
+            || die "${asset} does not match the sha256 repo.kdl declares"
+    else
+        curl -fsSL --retry 3 --retry-all-errors -o "${tmp}/sha256" "${url}.sha256" \
+            || die "cannot fetch ${url}.sha256"
+        (cd "$tmp" && printf '%s  %s\n' "$(cat sha256)" "$asset" \
+            | sha256sum --check --status) \
+            || die "${asset} does not match its published checksum"
+    fi
 
     tar -xzf "${tmp}/${asset}" -C "$tmp" tect
     mv "${tmp}/tect" "$bin"

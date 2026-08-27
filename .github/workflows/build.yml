@@ -49,7 +49,7 @@ jobs:
 
           base="$(git merge-base "origin/${BASE_REF}" HEAD)"
           changed="$(git diff --name-only "$base" HEAD \
-            | grep -E '^(modules/.*/module\.kdl|modules\.kdl)$' || true)"
+            | grep -E '^(repo\.kdl|modules/.*/module\.kdl|modules\.kdl)$' || true)"
           if [ -z "$changed" ]; then
             echo "No manifest changed against ${BASE_REF}, nothing to do."
             exit 0
@@ -58,6 +58,22 @@ jobs:
           echo "$changed"
 
           fixed=()
+
+          if grep -qxF repo.kdl <<< "$changed"; then
+            version="$(sed -n 's/^[[:space:]]*tect-version[[:space:]]*"\([^"]*\)".*$/\1/p' repo.kdl)"
+            asset="tect-v${version}-x86_64-linux-musl.tar.gz"
+            url="https://github.com/tectonic-os/tectonic/releases/download/v${version}/${asset}.sha256"
+            actual="$(curl -fsSL --retry 3 "$url")" \
+              || { echo "::error file=repo.kdl::${url} did not download"; exit 1; }
+            [[ "$actual" =~ ^[0-9a-f]{64}$ ]] \
+              || { echo "::error file=repo.kdl::${url} did not contain a sha256"; exit 1; }
+            sed -i -E "/^[[:space:]]*tect-version[[:space:]]+\"/ {
+              /sha256[[:space:]]*=/ s@sha256[[:space:]]*=[[:space:]]*\"[^\"]*\"@sha256=\"${actual}\"@
+              /sha256[[:space:]]*=/! s@([[:space:]]*(//.*)?)$@ sha256=\"${actual}\"\1@
+            }" repo.kdl
+            fixed+=("tect ${version}")
+            echo "tect ${version}: hash updated."
+          fi
 
           if grep -qE '^[^/]+\.kdl$' <<< "$changed"; then
             while IFS='|' read -r name _ ref pinned url _ file; do
@@ -278,6 +294,7 @@ jobs:
           else
             echo "PUBLISH=false" >> "${GITHUB_ENV}"
           fi
+          # A second GITHUB_ENV write keeps region markers out of the continuation above.
           if [ "${{ github.event_name }}" != "schedule" ] \
              && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
             echo "PUBLISH=false" >> "${GITHUB_ENV}"
@@ -651,7 +668,7 @@ jobs:
     needs: [checksums, compute-matrix, build_push]
     name: Scan the claims (${{ matrix.target }})
     runs-on: ubuntu-24.04
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
 
     strategy:
       matrix:
