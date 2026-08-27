@@ -27,7 +27,7 @@ RUN mv /opt /opt.bak && mkdir /opt
 
 # ---- tectonic-os/fedora-family ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family,target=/ctx/modules/.remote/tectonic-os/fedora-family \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/fedora-family.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -38,7 +38,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family
 
 # ---- tectonic-os/just ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/just,target=/ctx/modules/.remote/tectonic-os/just \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/just.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -49,7 +49,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/just,target=/
 
 # ---- tectonic-os/bootloader ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/bootloader,target=/ctx/modules/.remote/tectonic-os/bootloader \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/bootloader.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -60,7 +60,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/bootloader,ta
 
 # ---- tectonic-os/signature-policy ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-policy,target=/ctx/modules/.remote/tectonic-os/signature-policy \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/signature-policy.sh,target=/ctx/module.sh \
     --mount=type=bind,from=public-keys,source=/public,target=/ctx/keys \
@@ -72,7 +72,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-pol
 
 # ---- tectonic-os/auto-updates ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/auto-updates,target=/ctx/modules/.remote/tectonic-os/auto-updates \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/auto-updates.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -83,7 +83,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/auto-updates,
 
 # ---- tectonic-os/system-just-scripts ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/system-just-scripts,target=/ctx/modules/.remote/tectonic-os/system-just-scripts \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/system-just-scripts.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -94,7 +94,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/system-just-s
 
 # ---- tectonic-os/flatpak ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/flatpak,target=/ctx/modules/.remote/tectonic-os/flatpak \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/flatpak.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -105,7 +105,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/flatpak,targe
 
 # ---- tectonic-os/brew ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/brew,target=/ctx/modules/.remote/tectonic-os/brew \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/brew.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -116,7 +116,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/brew,target=/
 
 # ---- tectonic-os/cli-tools ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/cli-tools,target=/ctx/modules/.remote/tectonic-os/cli-tools \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/cli-tools.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -127,7 +127,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/cli-tools,tar
 
 # ---- tectonic-os/coredumps ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/coredumps,target=/ctx/modules/.remote/tectonic-os/coredumps \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/coredumps.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -138,7 +138,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/coredumps,tar
 
 # ---- tectonic-os/login-policy ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/login-policy,target=/ctx/modules/.remote/tectonic-os/login-policy \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/login-policy.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -149,7 +149,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/login-policy,
 
 # ---- tectonic-os/hardened-malloc ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardened-malloc,target=/ctx/modules/.remote/tectonic-os/hardened-malloc \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardened-malloc.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -160,7 +160,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardened-mall
 
 # ---- tectonic-os/sudo-hardening ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/sudo-hardening,target=/ctx/modules/.remote/tectonic-os/sudo-hardening \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/sudo-hardening.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -171,7 +171,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/sudo-hardenin
 
 # ---- tectonic-os/kde-desktop ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/kde-desktop,target=/ctx/modules/.remote/tectonic-os/kde-desktop \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/kde-desktop.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -182,7 +182,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/kde-desktop,t
 
 # ---- tectonic-os/bazaar ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/bazaar,target=/ctx/modules/.remote/tectonic-os/bazaar \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/bazaar.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -193,7 +193,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/bazaar,target
 
 # ---- tectonic-os/media-codecs ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/media-codecs,target=/ctx/modules/.remote/tectonic-os/media-codecs \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/media-codecs.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -208,7 +208,7 @@ ARG FLAVOUR
 # ---- [dx] ----
 # ---- tectonic-os/dev-tools ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/dev-tools,target=/ctx/modules/.remote/tectonic-os/dev-tools \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/dev-tools@dx.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -220,7 +220,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/dev-tools,tar
 # ---- [dx] ----
 # ---- tectonic-os/podman ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/podman,target=/ctx/modules/.remote/tectonic-os/podman \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/podman@dx.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -232,7 +232,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/podman,target
 # ---- [dx] ----
 # ---- tectonic-os/libvirt ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/libvirt,target=/ctx/modules/.remote/tectonic-os/libvirt \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/libvirt@dx.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -244,7 +244,7 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/libvirt,targe
 # ---- [dx] ----
 # ---- tectonic-os/vscodium ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/vscodium,target=/ctx/modules/.remote/tectonic-os/vscodium \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/vscodium@dx.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
@@ -272,7 +272,7 @@ RUN --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
 
 # ---- finalize ----
 RUN --mount=type=bind,from=ctx,source=/generated/desktop.d/finalize.sh,target=/ctx/finalize.sh \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family,target=/ctx/modules/.remote/tectonic-os/fedora-family \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-policy,target=/ctx/modules/.remote/tectonic-os/signature-policy \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/auto-updates,target=/ctx/modules/.remote/tectonic-os/auto-updates \
