@@ -4,7 +4,6 @@
 
 ARG BASE
 FROM scratch AS ctx
-COPY lib/ /lib/
 COPY modules/ /modules/
 COPY generated/ /generated/
 
