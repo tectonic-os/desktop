@@ -5,4 +5,5 @@ set -euxo pipefail
 MODDIR=/ctx/modules/.remote/tectonic-os/sudo-hardening
 export MODDIR
 
-source /ctx/modules/.remote/tectonic-os/sudo-hardening/module.sh
+cp -rT /ctx/modules/.remote/tectonic-os/sudo-hardening/files /
+chmod '0440' -- '/etc/sudoers.d/99-hardening'

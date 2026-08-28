@@ -33,6 +33,7 @@ graph LR
     m0 -->|"build-environment"| m4
     m0 -->|"build-environment"| m11
     m0 -->|"build-environment"| m15
+    m0 -->|"build-environment"| m19
     m1 -->|"just"| m5
     m3 -->|"signature-policy"| m4
     m6 -->|"flatpak"| m14
@@ -47,7 +48,7 @@ graph LR
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `/usr/libexec/grub2-os-prober-regen` | file | `tectonic-os/bootloader` |  |  |
 | `bazaar` | capability | `tectonic-os/bazaar` |  |  |
-| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardened-malloc`, `tectonic-os/media-codecs` |  |
+| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardened-malloc`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
 | `flatpak` | capability | `tectonic-os/flatpak` | `tectonic-os/bazaar` |  |
 | `hardened-malloc` | capability | `tectonic-os/hardened-malloc` |  | `tectonic-os/libvirt`, `tectonic-os/vscodium` |
 | `initramfs-generation` | capability | `base` |  |  |

@@ -404,8 +404,11 @@
               "requires": [
                 "mac-policy"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "97fd2b104fb78dd478cdef92c478dd30f9070d1a827093f94212601b8b99e71f",
+                "content": "751f76058e582a60799d59822540d7b3d770d68aac9d0632b81f7ce0aa14f6fe",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -433,6 +436,17 @@
                 "just"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "just"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "7ab5a9e77516c13165d6406b6dff2b7cc7dabe197e1b5051ed30587d7e7238fc",
                 "repo": false,
@@ -460,6 +474,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "0cf2564a17f2cc6515cfa1d7e331225f1f2601cc0b5a6f174e94ba1b2c4fe5d0",
                 "repo": false,
@@ -489,6 +506,9 @@
                 "signature-policy"
               ],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
@@ -519,6 +539,9 @@
                 "build-environment",
                 "signature-policy"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "4cfbd5e78d5e8b85933ef302a879180b29bae88d5c1f6015eeec44b05fc034f2",
                 "repo": false,
@@ -548,6 +571,9 @@
               "requires": [
                 "just"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "a6129d5dc5f178f993f865187e07ff3b05b399e51cd2e6cab7ff74286bc1e010",
                 "repo": false,
@@ -577,6 +603,17 @@
                 "flatpak"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "flatpak"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "0082f7604b47a01031e77c4ceaa6180a0d4108488a9679cfef5c60768bf6fc70",
                 "repo": false,
@@ -604,6 +641,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "e45a123b4ef0238edd5a3198bf8e4c3af9c3c67f465b63c94c078e6dc2b5ee46",
                 "repo": false,
@@ -631,6 +671,32 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "7zip-standalone",
+                    "bash-completion",
+                    "bc",
+                    "bsdunzip",
+                    "btop",
+                    "htop",
+                    "iw",
+                    "mtr",
+                    "pv",
+                    "rsync",
+                    "tmux",
+                    "tree",
+                    "vim-enhanced",
+                    "whois",
+                    "wl-clipboard",
+                    "zip"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "42eaa0256ae5c8bf7e44502353b4728abb0b44b604dbefbd7c0edb382adeb3eb",
                 "repo": false,
@@ -658,6 +724,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "e67c0e92164b48c468f018ff92d44bad2e9381123dc3b535dba90dfa845ee3ac",
                 "repo": false,
@@ -692,6 +761,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "cb7106a65bdd8bf0b1c2c6f5e7b382a7f3b7b7715988e371421028f771dc365a",
                 "repo": false,
@@ -738,8 +810,25 @@
               "requires": [
                 "build-environment"
               ],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "hardened_malloc",
+                    "no_rlimit_as"
+                  ],
+                  "enablerepo": "copr:copr.fedorainfracloud.org:secureblue:packages"
+                }
+              ],
+              "groups": [],
+              "coprs": [
+                {
+                  "id": "secureblue/packages",
+                  "url": "https://copr.fedorainfracloud.org/coprs/secureblue/packages/"
+                }
+              ],
               "provenance": {
-                "content": "f467deff3b311e4e52ee424e3d48380dc012c10934c03f71bb61f198f957b098",
+                "content": "a10636f48c46dd9edd6bb1159bbae8bbb828af76ab58e35cc4d43800da2ad1ab",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -765,8 +854,11 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "b351935c2e9bd3abb12e8e49f14cfe7aec117bef67ddb27568d8ddcc272597fd",
+                "content": "8043a521e28ed57ac6c892eaec3a34b7f7be30a005582d71add05e29e6df678e",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -801,8 +893,41 @@
                 "plasma-desktop"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "plasma-browser-integration",
+                    "plymouth",
+                    "plymouth-theme-spinner",
+                    "gvfs",
+                    "gvfs-client",
+                    "gvfs-fuse",
+                    "input-remapper",
+                    "kamera",
+                    "kate",
+                    "kate-krunner-plugin",
+                    "kate-plugins",
+                    "ksystemlog",
+                    "plasma-firewall",
+                    "plasma-firewall-firewalld"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "kde-desktop",
+                    "networkmanager-submodules"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "coprs": [],
               "provenance": {
-                "content": "632c4a76f1ec6fc09903450d2e937a4c3fac6b42c641ea4e1b95fae162e93b5d",
+                "content": "d1cad4dfd74e8da329c4e71c5e69fb4088070fabb6fd9cac6448ad4816c2f847",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -832,6 +957,9 @@
               "requires": [
                 "flatpak"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "805fe07b9613434ffb3a7d98db78e8d6c27206c050e2987fa7ad17483d5b3878",
                 "repo": false,
@@ -861,8 +989,25 @@
               "requires": [
                 "build-environment"
               ],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "ffmpeg",
+                    "ffmpeg-libs",
+                    "libva-utils",
+                    "pipewire-config-raop",
+                    "pipewire-gstreamer",
+                    "pipewire-libs-extra",
+                    "pipewire-utils"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "9377fe60ae409ceac89b5efb3c401bccdf2836764a62d86e6b0fa84e96fb00d5",
+                "content": "be956d8ec7d5e7cde77b6b8277953a9ae0573cd2745f0e7035bd2752374de0b0",
                 "repo": true,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -904,6 +1049,7 @@
             "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
             "/etc/security/pwquality.conf": "tectonic-os/login-policy",
             "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
+            "/etc/sudoers.d/99-hardening": "tectonic-os/sudo-hardening",
             "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/coredumps",
             "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/coredumps",
             "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/coredumps",
@@ -989,8 +1135,11 @@
               "requires": [
                 "mac-policy"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "97fd2b104fb78dd478cdef92c478dd30f9070d1a827093f94212601b8b99e71f",
+                "content": "751f76058e582a60799d59822540d7b3d770d68aac9d0632b81f7ce0aa14f6fe",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1018,6 +1167,17 @@
                 "just"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "just"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "7ab5a9e77516c13165d6406b6dff2b7cc7dabe197e1b5051ed30587d7e7238fc",
                 "repo": false,
@@ -1045,6 +1205,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "0cf2564a17f2cc6515cfa1d7e331225f1f2601cc0b5a6f174e94ba1b2c4fe5d0",
                 "repo": false,
@@ -1074,6 +1237,9 @@
                 "signature-policy"
               ],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
@@ -1104,6 +1270,9 @@
                 "build-environment",
                 "signature-policy"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "4cfbd5e78d5e8b85933ef302a879180b29bae88d5c1f6015eeec44b05fc034f2",
                 "repo": false,
@@ -1133,6 +1302,9 @@
               "requires": [
                 "just"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "a6129d5dc5f178f993f865187e07ff3b05b399e51cd2e6cab7ff74286bc1e010",
                 "repo": false,
@@ -1162,6 +1334,17 @@
                 "flatpak"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "flatpak"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "0082f7604b47a01031e77c4ceaa6180a0d4108488a9679cfef5c60768bf6fc70",
                 "repo": false,
@@ -1189,6 +1372,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "e45a123b4ef0238edd5a3198bf8e4c3af9c3c67f465b63c94c078e6dc2b5ee46",
                 "repo": false,
@@ -1216,6 +1402,32 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "7zip-standalone",
+                    "bash-completion",
+                    "bc",
+                    "bsdunzip",
+                    "btop",
+                    "htop",
+                    "iw",
+                    "mtr",
+                    "pv",
+                    "rsync",
+                    "tmux",
+                    "tree",
+                    "vim-enhanced",
+                    "whois",
+                    "wl-clipboard",
+                    "zip"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "42eaa0256ae5c8bf7e44502353b4728abb0b44b604dbefbd7c0edb382adeb3eb",
                 "repo": false,
@@ -1243,6 +1455,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "e67c0e92164b48c468f018ff92d44bad2e9381123dc3b535dba90dfa845ee3ac",
                 "repo": false,
@@ -1277,6 +1492,9 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "cb7106a65bdd8bf0b1c2c6f5e7b382a7f3b7b7715988e371421028f771dc365a",
                 "repo": false,
@@ -1323,8 +1541,25 @@
               "requires": [
                 "build-environment"
               ],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "hardened_malloc",
+                    "no_rlimit_as"
+                  ],
+                  "enablerepo": "copr:copr.fedorainfracloud.org:secureblue:packages"
+                }
+              ],
+              "groups": [],
+              "coprs": [
+                {
+                  "id": "secureblue/packages",
+                  "url": "https://copr.fedorainfracloud.org/coprs/secureblue/packages/"
+                }
+              ],
               "provenance": {
-                "content": "f467deff3b311e4e52ee424e3d48380dc012c10934c03f71bb61f198f957b098",
+                "content": "a10636f48c46dd9edd6bb1159bbae8bbb828af76ab58e35cc4d43800da2ad1ab",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1350,8 +1585,11 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "b351935c2e9bd3abb12e8e49f14cfe7aec117bef67ddb27568d8ddcc272597fd",
+                "content": "8043a521e28ed57ac6c892eaec3a34b7f7be30a005582d71add05e29e6df678e",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1386,8 +1624,41 @@
                 "plasma-desktop"
               ],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "plasma-browser-integration",
+                    "plymouth",
+                    "plymouth-theme-spinner",
+                    "gvfs",
+                    "gvfs-client",
+                    "gvfs-fuse",
+                    "input-remapper",
+                    "kamera",
+                    "kate",
+                    "kate-krunner-plugin",
+                    "kate-plugins",
+                    "ksystemlog",
+                    "plasma-firewall",
+                    "plasma-firewall-firewalld"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "kde-desktop",
+                    "networkmanager-submodules"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "coprs": [],
               "provenance": {
-                "content": "632c4a76f1ec6fc09903450d2e937a4c3fac6b42c641ea4e1b95fae162e93b5d",
+                "content": "d1cad4dfd74e8da329c4e71c5e69fb4088070fabb6fd9cac6448ad4816c2f847",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1417,6 +1688,9 @@
               "requires": [
                 "flatpak"
               ],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "805fe07b9613434ffb3a7d98db78e8d6c27206c050e2987fa7ad17483d5b3878",
                 "repo": false,
@@ -1446,8 +1720,25 @@
               "requires": [
                 "build-environment"
               ],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "ffmpeg",
+                    "ffmpeg-libs",
+                    "libva-utils",
+                    "pipewire-config-raop",
+                    "pipewire-gstreamer",
+                    "pipewire-libs-extra",
+                    "pipewire-utils"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "9377fe60ae409ceac89b5efb3c401bccdf2836764a62d86e6b0fa84e96fb00d5",
+                "content": "be956d8ec7d5e7cde77b6b8277953a9ae0573cd2745f0e7035bd2752374de0b0",
                 "repo": true,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1473,6 +1764,21 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "direnv",
+                    "git",
+                    "git-credential-libsecret",
+                    "git-delta",
+                    "git-lfs"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "ec662c71ec2e0192f004fb0be7ff4b82c4ff5bf5a74acf3da1a8b0c651437075",
                 "repo": false,
@@ -1500,6 +1806,20 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "podman-compose",
+                    "podman-machine",
+                    "podman-tui",
+                    "slirp4netns"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "cab2a42f18c569185d3dc157bf86d4198cb2877438e663c82e19d671f3215fbe",
                 "repo": false,
@@ -1527,6 +1847,27 @@
               "options": {},
               "provides": [],
               "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "edk2-ovmf",
+                    "libvirt",
+                    "libvirt-nss",
+                    "qemu",
+                    "qemu-img",
+                    "qemu-system-x86-core",
+                    "qemu-user-binfmt",
+                    "qemu-user-static-aarch64",
+                    "virt-manager",
+                    "virt-v2v",
+                    "virt-viewer"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "8f672acbc33202150db855e49a40b7f85fc099078e3e120b215079b1bee04736",
                 "repo": false,
@@ -1553,9 +1894,22 @@
               "description": "VSCodium, the telemetry-free VS Code build",
               "options": {},
               "provides": [],
-              "requires": [],
+              "requires": [
+                "build-environment"
+              ],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "codium"
+                  ],
+                  "enablerepo": "vscodium"
+                }
+              ],
+              "groups": [],
+              "coprs": [],
               "provenance": {
-                "content": "68dc61530c097f878eade231da7fb4624236ddad5867756e4c7d10eb70301ee8",
+                "content": "c226f6af7d3fc856bc1c184e53dd42c97aa8b2d4e9a695bae7594e20d18f20c1",
                 "repo": true,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1597,6 +1951,7 @@
             "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
             "/etc/security/pwquality.conf": "tectonic-os/login-policy",
             "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
+            "/etc/sudoers.d/99-hardening": "tectonic-os/sudo-hardening",
             "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/coredumps",
             "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/coredumps",
             "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/coredumps",

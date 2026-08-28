@@ -11,4 +11,8 @@ else
     source /ctx/modules/.remote/tectonic-os/media-codecs/repo
 fi
 
+source /ctx/lib/family.sh
+
+install_packages 'ffmpeg' 'ffmpeg-libs' 'libva-utils' 'pipewire-config-raop' 'pipewire-gstreamer' 'pipewire-libs-extra' 'pipewire-utils'
+
 source /ctx/modules/.remote/tectonic-os/media-codecs/module.sh

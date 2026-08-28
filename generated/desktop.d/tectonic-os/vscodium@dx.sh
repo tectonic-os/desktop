@@ -16,4 +16,8 @@ else
     source /ctx/modules/.remote/tectonic-os/vscodium/repo
 fi
 
+source /ctx/lib/family.sh
+
+TECT_ENABLE_REPO='vscodium' install_packages 'codium'
+
 source /ctx/modules/.remote/tectonic-os/vscodium/module.sh

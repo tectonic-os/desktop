@@ -5,7 +5,12 @@ set -euxo pipefail
 MODDIR=/ctx/modules/.remote/tectonic-os/hardened-malloc
 export MODDIR
 
-source /ctx/modules/.remote/tectonic-os/hardened-malloc/module.sh
+source /ctx/lib/family.sh
+
+export COPR_SECUREBLUE_PACKAGES='copr:copr.fedorainfracloud.org:secureblue:packages'
+enable_copr 'secureblue/packages'
+
+TECT_ENABLE_REPO='copr:copr.fedorainfracloud.org:secureblue:packages' install_packages 'hardened_malloc' 'no_rlimit_as'
 
 cp -rT /ctx/modules/.remote/tectonic-os/hardened-malloc/files /
 

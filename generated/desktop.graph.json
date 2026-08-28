@@ -33,7 +33,8 @@
       "required_by": [
         "tectonic-os/auto-updates",
         "tectonic-os/hardened-malloc",
-        "tectonic-os/media-codecs"
+        "tectonic-os/media-codecs",
+        "tectonic-os/vscodium"
       ],
       "after": []
     },
