@@ -18,10 +18,10 @@ graph LR
     m6["tectonic-os/flatpak"]
     m7["tectonic-os/brew"]
     m8["tectonic-os/cli-tools"]
-    m9["tectonic-os/coredumps"]
-    m10["tectonic-os/login-policy"]
-    m11["tectonic-os/hardened-malloc"]
-    m12["tectonic-os/sudo-hardening"]
+    m9["tectonic-os/hardening/coredumps"]
+    m10["tectonic-os/hardening/login-policy"]
+    m11["tectonic-os/hardening/hardened-malloc"]
+    m12["tectonic-os/hardening/sudo-hardening"]
     m13["tectonic-os/kde-desktop"]
     m14["tectonic-os/bazaar"]
     m15["tectonic-os/media-codecs"]
@@ -48,9 +48,9 @@ graph LR
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `/usr/libexec/grub2-os-prober-regen` | file | `tectonic-os/bootloader` |  |  |
 | `bazaar` | capability | `tectonic-os/bazaar` |  |  |
-| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardened-malloc`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
+| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardening/hardened-malloc`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
 | `flatpak` | capability | `tectonic-os/flatpak` | `tectonic-os/bazaar` |  |
-| `hardened-malloc` | capability | `tectonic-os/hardened-malloc` |  | `tectonic-os/libvirt`, `tectonic-os/vscodium` |
+| `hardened-malloc` | capability | `tectonic-os/hardening/hardened-malloc` |  | `tectonic-os/libvirt`, `tectonic-os/vscodium` |
 | `initramfs-generation` | capability | `base` |  |  |
 | `just` | capability | `tectonic-os/just` | `tectonic-os/system-just-scripts` |  |
 | `mac-policy` | capability | `base` | `tectonic-os/fedora-family` |  |

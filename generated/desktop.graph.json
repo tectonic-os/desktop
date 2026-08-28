@@ -32,7 +32,7 @@
       "provider": "tectonic-os/fedora-family",
       "required_by": [
         "tectonic-os/auto-updates",
-        "tectonic-os/hardened-malloc",
+        "tectonic-os/hardening/hardened-malloc",
         "tectonic-os/media-codecs",
         "tectonic-os/vscodium"
       ],
@@ -52,7 +52,7 @@
       "name": "hardened-malloc",
       "kind": "capability",
       "build_only": false,
-      "provider": "tectonic-os/hardened-malloc",
+      "provider": "tectonic-os/hardening/hardened-malloc",
       "required_by": [],
       "after": [
         "tectonic-os/libvirt",

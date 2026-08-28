@@ -15,7 +15,7 @@ rm -rf /usr/share/flatpak-defaults/apps.list.d
 
 # ---- /usr/share/just/justfile.apps ----
 parts=()
-for part in /usr/share/just/justfile.apps.d/0500-tectonic-os-auto-updates.part /usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part /usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part; do
+for part in /usr/share/just/justfile.apps.d/0500-tectonic-os-auto-updates.part /usr/share/just/justfile.apps.d/0500-tectonic-os-hardening-hardened-malloc.part /usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part; do
     [ -f "$part" ] || continue
     parts+=("$part")
 done

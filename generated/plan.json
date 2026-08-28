@@ -172,8 +172,8 @@
       }
     },
     {
-      "name": "tectonic-os/coredumps",
-      "dir": "modules/.remote/tectonic-os/coredumps",
+      "name": "tectonic-os/hardening/coredumps",
+      "dir": "modules/.remote/tectonic-os/hardening/coredumps",
       "file": "./desktop.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -187,8 +187,8 @@
       }
     },
     {
-      "name": "tectonic-os/login-policy",
-      "dir": "modules/.remote/tectonic-os/login-policy",
+      "name": "tectonic-os/hardening/login-policy",
+      "dir": "modules/.remote/tectonic-os/hardening/login-policy",
       "file": "./desktop.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -202,8 +202,8 @@
       }
     },
     {
-      "name": "tectonic-os/hardened-malloc",
-      "dir": "modules/.remote/tectonic-os/hardened-malloc",
+      "name": "tectonic-os/hardening/hardened-malloc",
+      "dir": "modules/.remote/tectonic-os/hardening/hardened-malloc",
       "file": "./desktop.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -217,8 +217,8 @@
       }
     },
     {
-      "name": "tectonic-os/sudo-hardening",
-      "dir": "modules/.remote/tectonic-os/sudo-hardening",
+      "name": "tectonic-os/hardening/sudo-hardening",
+      "dir": "modules/.remote/tectonic-os/hardening/sudo-hardening",
       "file": "./desktop.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -715,8 +715,8 @@
               "satisfies": []
             },
             {
-              "path": "tectonic-os/coredumps",
-              "dir": ".remote/tectonic-os/coredumps",
+              "path": "tectonic-os/hardening/coredumps",
+              "dir": ".remote/tectonic-os/hardening/coredumps",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -752,8 +752,8 @@
               ]
             },
             {
-              "path": "tectonic-os/login-policy",
-              "dir": ".remote/tectonic-os/login-policy",
+              "path": "tectonic-os/hardening/login-policy",
+              "dir": ".remote/tectonic-os/hardening/login-policy",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -797,8 +797,8 @@
               ]
             },
             {
-              "path": "tectonic-os/hardened-malloc",
-              "dir": ".remote/tectonic-os/hardened-malloc",
+              "path": "tectonic-os/hardening/hardened-malloc",
+              "dir": ".remote/tectonic-os/hardening/hardened-malloc",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -845,8 +845,8 @@
               "satisfies": []
             },
             {
-              "path": "tectonic-os/sudo-hardening",
-              "dir": ".remote/tectonic-os/sudo-hardening",
+              "path": "tectonic-os/hardening/sudo-hardening",
+              "dir": ".remote/tectonic-os/hardening/sudo-hardening",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -1042,21 +1042,21 @@
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
           },
           "overlay_files": {
-            "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardened-malloc",
+            "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardening/hardened-malloc",
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
             "/etc/profile.d/linuxbrew.sh": "tectonic-os/brew",
-            "/etc/security/faillock.conf": "tectonic-os/login-policy",
-            "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
-            "/etc/security/pwquality.conf": "tectonic-os/login-policy",
+            "/etc/security/faillock.conf": "tectonic-os/hardening/login-policy",
+            "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/hardening/coredumps",
+            "/etc/security/pwquality.conf": "tectonic-os/hardening/login-policy",
             "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
-            "/etc/sudoers.d/99-hardening": "tectonic-os/sudo-hardening",
-            "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/coredumps",
-            "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/coredumps",
-            "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/coredumps",
-            "/usr/lib/systemd/system-generators/coreos-sulogin-force-generator": "tectonic-os/login-policy",
+            "/etc/sudoers.d/99-hardening": "tectonic-os/hardening/sudo-hardening",
+            "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/hardening/coredumps",
+            "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
+            "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
+            "/usr/lib/systemd/system-generators/coreos-sulogin-force-generator": "tectonic-os/hardening/login-policy",
             "/usr/lib/systemd/system-preset/45-module-flatpak.preset": "tectonic-os/flatpak",
             "/usr/lib/systemd/system-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
-            "/usr/lib/systemd/system-preset/45-module-login-policy.preset": "tectonic-os/login-policy",
+            "/usr/lib/systemd/system-preset/45-module-login-policy.preset": "tectonic-os/hardening/login-policy",
             "/usr/lib/systemd/system-preset/45-module-updates.preset": "tectonic-os/auto-updates",
             "/usr/lib/systemd/system/bootc-fetch-apply-updates.service.d/10-override.conf": "tectonic-os/auto-updates",
             "/usr/lib/systemd/system/bootc-fetch-apply-updates.timer.d/10-override.conf": "tectonic-os/auto-updates",
@@ -1068,7 +1068,7 @@
             "/usr/lib/systemd/user-preset/45-module-brew.preset": "tectonic-os/brew",
             "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/user/brew-setup.service": "tectonic-os/brew",
-            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/login-policy",
+            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/hardening/login-policy",
             "/usr/libexec/brew-setup": "tectonic-os/brew",
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
             "/usr/libexec/install-flatpaks": "tectonic-os/flatpak",
@@ -1089,10 +1089,10 @@
                 "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part"
               }
             ],
-            "tectonic-os/hardened-malloc": [
+            "tectonic-os/hardening/hardened-malloc": [
               {
                 "file": "justfile.inc",
-                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part"
+                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardening-hardened-malloc.part"
               }
             ],
             "tectonic-os/bazaar": [
@@ -1446,8 +1446,8 @@
               "satisfies": []
             },
             {
-              "path": "tectonic-os/coredumps",
-              "dir": ".remote/tectonic-os/coredumps",
+              "path": "tectonic-os/hardening/coredumps",
+              "dir": ".remote/tectonic-os/hardening/coredumps",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -1483,8 +1483,8 @@
               ]
             },
             {
-              "path": "tectonic-os/login-policy",
-              "dir": ".remote/tectonic-os/login-policy",
+              "path": "tectonic-os/hardening/login-policy",
+              "dir": ".remote/tectonic-os/hardening/login-policy",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -1528,8 +1528,8 @@
               ]
             },
             {
-              "path": "tectonic-os/hardened-malloc",
-              "dir": ".remote/tectonic-os/hardened-malloc",
+              "path": "tectonic-os/hardening/hardened-malloc",
+              "dir": ".remote/tectonic-os/hardening/hardened-malloc",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -1576,8 +1576,8 @@
               "satisfies": []
             },
             {
-              "path": "tectonic-os/sudo-hardening",
-              "dir": ".remote/tectonic-os/sudo-hardening",
+              "path": "tectonic-os/hardening/sudo-hardening",
+              "dir": ".remote/tectonic-os/hardening/sudo-hardening",
               "flavour": null,
               "variant": null,
               "remote": "main",
@@ -1944,22 +1944,22 @@
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
           },
           "overlay_files": {
-            "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardened-malloc",
+            "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardening/hardened-malloc",
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
             "/etc/profile.d/linuxbrew.sh": "tectonic-os/brew",
-            "/etc/security/faillock.conf": "tectonic-os/login-policy",
-            "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/coredumps",
-            "/etc/security/pwquality.conf": "tectonic-os/login-policy",
+            "/etc/security/faillock.conf": "tectonic-os/hardening/login-policy",
+            "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/hardening/coredumps",
+            "/etc/security/pwquality.conf": "tectonic-os/hardening/login-policy",
             "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
-            "/etc/sudoers.d/99-hardening": "tectonic-os/sudo-hardening",
-            "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/coredumps",
-            "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/coredumps",
-            "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/coredumps",
-            "/usr/lib/systemd/system-generators/coreos-sulogin-force-generator": "tectonic-os/login-policy",
+            "/etc/sudoers.d/99-hardening": "tectonic-os/hardening/sudo-hardening",
+            "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/hardening/coredumps",
+            "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
+            "/etc/systemd/user.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
+            "/usr/lib/systemd/system-generators/coreos-sulogin-force-generator": "tectonic-os/hardening/login-policy",
             "/usr/lib/systemd/system-preset/45-module-flatpak.preset": "tectonic-os/flatpak",
             "/usr/lib/systemd/system-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/system-preset/45-module-libvirt.preset": "tectonic-os/libvirt",
-            "/usr/lib/systemd/system-preset/45-module-login-policy.preset": "tectonic-os/login-policy",
+            "/usr/lib/systemd/system-preset/45-module-login-policy.preset": "tectonic-os/hardening/login-policy",
             "/usr/lib/systemd/system-preset/45-module-podman.preset": "tectonic-os/podman",
             "/usr/lib/systemd/system-preset/45-module-updates.preset": "tectonic-os/auto-updates",
             "/usr/lib/systemd/system/bootc-fetch-apply-updates.service.d/10-override.conf": "tectonic-os/auto-updates",
@@ -1975,7 +1975,7 @@
             "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/user/brew-setup.service": "tectonic-os/brew",
             "/usr/lib/sysusers.d/libvirt-workarounds.conf": "tectonic-os/libvirt",
-            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/login-policy",
+            "/usr/lib/tmpfiles.d/faillock-dir.conf": "tectonic-os/hardening/login-policy",
             "/usr/lib/tmpfiles.d/libvirt-workarounds.conf": "tectonic-os/libvirt",
             "/usr/libexec/add-wheel-users-to-libvirt": "tectonic-os/libvirt",
             "/usr/libexec/brew-setup": "tectonic-os/brew",
@@ -1998,10 +1998,10 @@
                 "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-system-just-scripts.part"
               }
             ],
-            "tectonic-os/hardened-malloc": [
+            "tectonic-os/hardening/hardened-malloc": [
               {
                 "file": "justfile.inc",
-                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardened-malloc.part"
+                "staged": "/usr/share/just/justfile.apps.d/0500-tectonic-os-hardening-hardened-malloc.part"
               }
             ],
             "tectonic-os/bazaar": [

@@ -124,44 +124,44 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/cli-tools,tar
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- tectonic-os/coredumps ----
-RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/coredumps,target=/ctx/modules/.remote/tectonic-os/coredumps \
+# ---- tectonic-os/hardening/coredumps ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardening/coredumps,target=/ctx/modules/.remote/tectonic-os/hardening/coredumps \
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/coredumps.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardening/coredumps.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- tectonic-os/login-policy ----
-RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/login-policy,target=/ctx/modules/.remote/tectonic-os/login-policy \
+# ---- tectonic-os/hardening/login-policy ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardening/login-policy,target=/ctx/modules/.remote/tectonic-os/hardening/login-policy \
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/login-policy.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardening/login-policy.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- tectonic-os/hardened-malloc ----
-RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardened-malloc,target=/ctx/modules/.remote/tectonic-os/hardened-malloc \
+# ---- tectonic-os/hardening/hardened-malloc ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardening/hardened-malloc,target=/ctx/modules/.remote/tectonic-os/hardening/hardened-malloc \
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardened-malloc.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardening/hardened-malloc.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- tectonic-os/sudo-hardening ----
-RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/sudo-hardening,target=/ctx/modules/.remote/tectonic-os/sudo-hardening \
+# ---- tectonic-os/hardening/sudo-hardening ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardening/sudo-hardening,target=/ctx/modules/.remote/tectonic-os/hardening/sudo-hardening \
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
-    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/sudo-hardening.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardening/sudo-hardening.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \
