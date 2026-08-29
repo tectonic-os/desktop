@@ -928,7 +928,7 @@
               ],
               "coprs": [],
               "provenance": {
-                "content": "d1cad4dfd74e8da329c4e71c5e69fb4088070fabb6fd9cac6448ad4816c2f847",
+                "content": "276c66640f5214ce9dc9c570642c410c3d683159e7bdb4d1fc28e731d33bd5a6",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1049,7 +1049,6 @@
             "/etc/security/faillock.conf": "tectonic-os/hardening/login-policy",
             "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/hardening/coredumps",
             "/etc/security/pwquality.conf": "tectonic-os/hardening/login-policy",
-            "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
             "/etc/sudoers.d/99-hardening": "tectonic-os/hardening/sudo-hardening",
             "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/hardening/coredumps",
             "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
@@ -1660,7 +1659,7 @@
               ],
               "coprs": [],
               "provenance": {
-                "content": "d1cad4dfd74e8da329c4e71c5e69fb4088070fabb6fd9cac6448ad4816c2f847",
+                "content": "276c66640f5214ce9dc9c570642c410c3d683159e7bdb4d1fc28e731d33bd5a6",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1952,7 +1951,6 @@
             "/etc/security/faillock.conf": "tectonic-os/hardening/login-policy",
             "/etc/security/limits.d/99-disable-coredumps.conf": "tectonic-os/hardening/coredumps",
             "/etc/security/pwquality.conf": "tectonic-os/hardening/login-policy",
-            "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc": "tectonic-os/kde-desktop",
             "/etc/sudoers.d/99-hardening": "tectonic-os/hardening/sudo-hardening",
             "/etc/systemd/coredump.conf.d/99-disable.conf": "tectonic-os/hardening/coredumps",
             "/etc/systemd/system.conf.d/99-coredump.conf": "tectonic-os/hardening/coredumps",
