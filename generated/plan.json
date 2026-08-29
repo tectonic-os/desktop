@@ -381,6 +381,7 @@
           "image": "desktop",
           "flavour": null,
           "published": "desktop",
+          "conforms": "standard",
           "default": true,
           "pr": true,
           "siblings": [
@@ -1112,6 +1113,7 @@
           "image": "desktop",
           "flavour": "dx",
           "published": "desktop-dx",
+          "conforms": "",
           "default": false,
           "pr": false,
           "siblings": [
