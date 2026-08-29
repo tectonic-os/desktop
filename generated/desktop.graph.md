@@ -10,35 +10,37 @@ right.
 graph LR
     base["quay.io/fedora/fedora-bootc:44"]
     m0["tectonic-os/fedora-family"]
-    m1["tectonic-os/just"]
-    m2["tectonic-os/bootloader"]
-    m3["tectonic-os/signature-policy"]
-    m4["tectonic-os/auto-updates"]
-    m5["tectonic-os/system-just-scripts"]
-    m6["tectonic-os/flatpak"]
-    m7["tectonic-os/brew"]
-    m8["tectonic-os/cli-tools"]
-    m9["tectonic-os/hardening/coredumps"]
-    m10["tectonic-os/hardening/login-policy"]
-    m11["tectonic-os/hardening/hardened-malloc"]
-    m12["tectonic-os/hardening/sudo-hardening"]
-    m13["tectonic-os/kde-desktop"]
-    m14["tectonic-os/bazaar"]
-    m15["tectonic-os/media-codecs"]
-    m16["tectonic-os/dev-tools [dx]"]
-    m17["tectonic-os/podman [dx]"]
-    m18["tectonic-os/libvirt [dx]"]
-    m19["tectonic-os/vscodium [dx]"]
+    m1["tectonic-os/fedora-bootc-workstation-debloat"]
+    m2["tectonic-os/just"]
+    m3["tectonic-os/bootloader"]
+    m4["tectonic-os/signature-policy"]
+    m5["tectonic-os/auto-updates"]
+    m6["tectonic-os/system-just-scripts"]
+    m7["tectonic-os/flatpak"]
+    m8["tectonic-os/brew"]
+    m9["tectonic-os/cli-tools"]
+    m10["tectonic-os/hardening/coredumps"]
+    m11["tectonic-os/hardening/login-policy"]
+    m12["tectonic-os/hardening/hardened-malloc"]
+    m13["tectonic-os/hardening/sudo-hardening"]
+    m14["tectonic-os/plymouth"]
+    m15["tectonic-os/kde-desktop"]
+    m16["tectonic-os/bazaar"]
+    m17["tectonic-os/media-codecs"]
+    m18["tectonic-os/dev-tools [dx]"]
+    m19["tectonic-os/podman [dx]"]
+    m20["tectonic-os/libvirt [dx]"]
+    m21["tectonic-os/vscodium [dx]"]
     base -->|"mac-policy"| m0
-    m0 -->|"build-environment"| m4
-    m0 -->|"build-environment"| m11
-    m0 -->|"build-environment"| m15
-    m0 -->|"build-environment"| m19
-    m1 -->|"just"| m5
-    m3 -->|"signature-policy"| m4
-    m6 -->|"flatpak"| m14
-    m11 -.->|"hardened-malloc"| m18
-    m11 -.->|"hardened-malloc"| m19
+    m0 -->|"build-environment"| m5
+    m0 -->|"build-environment"| m12
+    m0 -->|"build-environment"| m17
+    m0 -->|"build-environment"| m21
+    m2 -->|"just"| m6
+    m4 -->|"signature-policy"| m5
+    m7 -->|"flatpak"| m16
+    m12 -.->|"hardened-malloc"| m20
+    m12 -.->|"hardened-malloc"| m21
 ```
 
 ## Capabilities

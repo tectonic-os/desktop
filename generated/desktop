@@ -35,6 +35,17 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
+# ---- tectonic-os/fedora-bootc-workstation-debloat ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-bootc-workstation-debloat,target=/ctx/modules/.remote/tectonic-os/fedora-bootc-workstation-debloat \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/fedora-bootc-workstation-debloat.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
 # ---- tectonic-os/just ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/just,target=/ctx/modules/.remote/tectonic-os/just \
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
@@ -162,6 +173,17 @@ RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/hardening/sud
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
     --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/hardening/sudo-hardening.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/plymouth ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/plymouth,target=/ctx/modules/.remote/tectonic-os/plymouth \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/fedora-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/desktop.d/tectonic-os/plymouth.sh,target=/ctx/module.sh \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \

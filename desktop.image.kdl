@@ -20,6 +20,7 @@ image {
     modules {
         source "tectonic-os" {
             module "fedora-family"
+            module "fedora-bootc-workstation-debloat"
             module "just"
             module "bootloader"
             module "signature-policy"
@@ -32,6 +33,7 @@ image {
             module "hardening/login-policy"
             module "hardening/hardened-malloc"
             module "hardening/sudo-hardening"
+            module "plymouth"
             module "kde-desktop"
             module "bazaar"
             module "media-codecs"

@@ -52,6 +52,21 @@
       }
     },
     {
+      "name": "tectonic-os/fedora-bootc-workstation-debloat",
+      "dir": "modules/.remote/tectonic-os/fedora-bootc-workstation-debloat",
+      "file": "./desktop.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
       "name": "tectonic-os/just",
       "dir": "modules/.remote/tectonic-os/just",
       "file": "./desktop.image.kdl",
@@ -219,6 +234,21 @@
     {
       "name": "tectonic-os/hardening/sudo-hardening",
       "dir": "modules/.remote/tectonic-os/hardening/sudo-hardening",
+      "file": "./desktop.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
+      "name": "tectonic-os/plymouth",
+      "dir": "modules/.remote/tectonic-os/plymouth",
       "file": "./desktop.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -410,6 +440,36 @@
               "coprs": [],
               "provenance": {
                 "content": "751f76058e582a60799d59822540d7b3d770d68aac9d0632b81f7ce0aa14f6fe",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/fedora-bootc-workstation-debloat",
+              "dir": ".remote/tectonic-os/fedora-bootc-workstation-debloat",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Drops the server, cloud and enterprise payload fedora-bootc ships, for images that are workstations",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "35cf6b0df96c44b4654fbbb06e24880019e7fc416038a9490266147cc9994184",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -883,6 +943,45 @@
               ]
             },
             {
+              "path": "tectonic-os/plymouth",
+              "dir": ".remote/tectonic-os/plymouth",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Plymouth boot splash on the spinner theme",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "plymouth",
+                    "plymouth-theme-spinner"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "7e96b24a70e30668bc3710aef7743ce70a850ed6ff72876861a40577fad53978",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
               "path": "tectonic-os/kde-desktop",
               "dir": ".remote/tectonic-os/kde-desktop",
               "flavour": null,
@@ -898,37 +997,71 @@
                 {
                   "family": "fedora",
                   "names": [
+                    "plasma-desktop",
+                    "plasma-workspace",
+                    "plasma-workspace-wallpapers",
+                    "plasma-login-manager",
+                    "kcm-plasmalogin",
+                    "plasma-setup",
+                    "kwin",
+                    "kscreen",
+                    "kscreenlocker",
+                    "plasma-breeze",
+                    "breeze-icon-theme",
+                    "kde-gtk-config",
+                    "kde-settings-plasmalogin",
+                    "kde-settings-pulseaudio",
+                    "polkit-kde",
+                    "xdg-desktop-portal-kde",
+                    "plasma-nm",
+                    "plasma-pa",
+                    "plasma-systemmonitor",
+                    "bluedevil",
+                    "pam-kwallet",
+                    "kwalletmanager5",
+                    "plasma-print-manager",
                     "plasma-browser-integration",
-                    "plymouth",
-                    "plymouth-theme-spinner",
+                    "plasma-firewall",
+                    "plasma-firewall-firewalld",
+                    "dolphin",
+                    "konsole",
+                    "ark",
+                    "spectacle",
+                    "kate",
+                    "kate-plugins",
+                    "kate-krunner-plugin",
+                    "ksystemlog",
+                    "kamera",
                     "gvfs",
                     "gvfs-client",
                     "gvfs-fuse",
+                    "firewalld",
+                    "accountsservice",
+                    "tuned",
+                    "tuned-ppd",
+                    "thermald",
+                    "switcheroo-control",
                     "input-remapper",
-                    "kamera",
-                    "kate",
-                    "kate-krunner-plugin",
-                    "kate-plugins",
-                    "ksystemlog",
-                    "plasma-firewall",
-                    "plasma-firewall-firewalld"
+                    "udisks2",
+                    "upower",
+                    "xdg-user-dirs",
+                    "systemd-oomd-defaults",
+                    "pipewire",
+                    "pipewire-pulseaudio",
+                    "wireplumber",
+                    "NetworkManager-wifi",
+                    "NetworkManager-bluetooth",
+                    "wpa_supplicant",
+                    "bluez",
+                    "pinentry-qt"
                   ],
                   "enablerepo": null
                 }
               ],
-              "groups": [
-                {
-                  "family": "fedora",
-                  "names": [
-                    "kde-desktop",
-                    "networkmanager-submodules"
-                  ],
-                  "enablerepo": null
-                }
-              ],
+              "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "276c66640f5214ce9dc9c570642c410c3d683159e7bdb4d1fc28e731d33bd5a6",
+                "content": "905cf41d6fa9ecb5902ec0f7554004d343574501575600d360019fd553c4f8c7",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1157,6 +1290,36 @@
               "satisfies": []
             },
             {
+              "path": "tectonic-os/fedora-bootc-workstation-debloat",
+              "dir": ".remote/tectonic-os/fedora-bootc-workstation-debloat",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Drops the server, cloud and enterprise payload fedora-bootc ships, for images that are workstations",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "35cf6b0df96c44b4654fbbb06e24880019e7fc416038a9490266147cc9994184",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
               "path": "tectonic-os/just",
               "dir": ".remote/tectonic-os/just",
               "flavour": null,
@@ -1614,6 +1777,45 @@
               ]
             },
             {
+              "path": "tectonic-os/plymouth",
+              "dir": ".remote/tectonic-os/plymouth",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Plymouth boot splash on the spinner theme",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "plymouth",
+                    "plymouth-theme-spinner"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "7e96b24a70e30668bc3710aef7743ce70a850ed6ff72876861a40577fad53978",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
               "path": "tectonic-os/kde-desktop",
               "dir": ".remote/tectonic-os/kde-desktop",
               "flavour": null,
@@ -1629,37 +1831,71 @@
                 {
                   "family": "fedora",
                   "names": [
+                    "plasma-desktop",
+                    "plasma-workspace",
+                    "plasma-workspace-wallpapers",
+                    "plasma-login-manager",
+                    "kcm-plasmalogin",
+                    "plasma-setup",
+                    "kwin",
+                    "kscreen",
+                    "kscreenlocker",
+                    "plasma-breeze",
+                    "breeze-icon-theme",
+                    "kde-gtk-config",
+                    "kde-settings-plasmalogin",
+                    "kde-settings-pulseaudio",
+                    "polkit-kde",
+                    "xdg-desktop-portal-kde",
+                    "plasma-nm",
+                    "plasma-pa",
+                    "plasma-systemmonitor",
+                    "bluedevil",
+                    "pam-kwallet",
+                    "kwalletmanager5",
+                    "plasma-print-manager",
                     "plasma-browser-integration",
-                    "plymouth",
-                    "plymouth-theme-spinner",
+                    "plasma-firewall",
+                    "plasma-firewall-firewalld",
+                    "dolphin",
+                    "konsole",
+                    "ark",
+                    "spectacle",
+                    "kate",
+                    "kate-plugins",
+                    "kate-krunner-plugin",
+                    "ksystemlog",
+                    "kamera",
                     "gvfs",
                     "gvfs-client",
                     "gvfs-fuse",
+                    "firewalld",
+                    "accountsservice",
+                    "tuned",
+                    "tuned-ppd",
+                    "thermald",
+                    "switcheroo-control",
                     "input-remapper",
-                    "kamera",
-                    "kate",
-                    "kate-krunner-plugin",
-                    "kate-plugins",
-                    "ksystemlog",
-                    "plasma-firewall",
-                    "plasma-firewall-firewalld"
+                    "udisks2",
+                    "upower",
+                    "xdg-user-dirs",
+                    "systemd-oomd-defaults",
+                    "pipewire",
+                    "pipewire-pulseaudio",
+                    "wireplumber",
+                    "NetworkManager-wifi",
+                    "NetworkManager-bluetooth",
+                    "wpa_supplicant",
+                    "bluez",
+                    "pinentry-qt"
                   ],
                   "enablerepo": null
                 }
               ],
-              "groups": [
-                {
-                  "family": "fedora",
-                  "names": [
-                    "kde-desktop",
-                    "networkmanager-submodules"
-                  ],
-                  "enablerepo": null
-                }
-              ],
+              "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "276c66640f5214ce9dc9c570642c410c3d683159e7bdb4d1fc28e731d33bd5a6",
+                "content": "905cf41d6fa9ecb5902ec0f7554004d343574501575600d360019fd553c4f8c7",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
