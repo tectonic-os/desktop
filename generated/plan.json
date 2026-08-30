@@ -951,7 +951,9 @@
               "description": "Plymouth boot splash on the spinner theme",
               "options": {},
               "provides": [],
-              "requires": [],
+              "requires": [
+                "build-environment"
+              ],
               "packages": [
                 {
                   "family": "fedora",
@@ -965,7 +967,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "7e96b24a70e30668bc3710aef7743ce70a850ed6ff72876861a40577fad53978",
+                "content": "525e8060ecd7fd90fc446d8a80ab55da0d7ab0673d24677daee56f2f488182c3",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -992,7 +994,9 @@
               "provides": [
                 "plasma-desktop"
               ],
-              "requires": [],
+              "requires": [
+                "build-environment"
+              ],
               "packages": [
                 {
                   "family": "fedora",
@@ -1061,7 +1065,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "905cf41d6fa9ecb5902ec0f7554004d343574501575600d360019fd553c4f8c7",
+                "content": "ac5645498b3a98ba5eab1176dc5cbb8a0a723ad27bad6ac37e8dd65ae9866df9",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1785,7 +1789,9 @@
               "description": "Plymouth boot splash on the spinner theme",
               "options": {},
               "provides": [],
-              "requires": [],
+              "requires": [
+                "build-environment"
+              ],
               "packages": [
                 {
                   "family": "fedora",
@@ -1799,7 +1805,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "7e96b24a70e30668bc3710aef7743ce70a850ed6ff72876861a40577fad53978",
+                "content": "525e8060ecd7fd90fc446d8a80ab55da0d7ab0673d24677daee56f2f488182c3",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1826,7 +1832,9 @@
               "provides": [
                 "plasma-desktop"
               ],
-              "requires": [],
+              "requires": [
+                "build-environment"
+              ],
               "packages": [
                 {
                   "family": "fedora",
@@ -1895,7 +1903,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "905cf41d6fa9ecb5902ec0f7554004d343574501575600d360019fd553c4f8c7",
+                "content": "ac5645498b3a98ba5eab1176dc5cbb8a0a723ad27bad6ac37e8dd65ae9866df9",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",

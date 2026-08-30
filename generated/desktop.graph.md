@@ -34,6 +34,8 @@ graph LR
     base -->|"mac-policy"| m0
     m0 -->|"build-environment"| m5
     m0 -->|"build-environment"| m12
+    m0 -->|"build-environment"| m14
+    m0 -->|"build-environment"| m15
     m0 -->|"build-environment"| m17
     m0 -->|"build-environment"| m21
     m2 -->|"just"| m6
@@ -50,7 +52,7 @@ graph LR
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `/usr/libexec/grub2-os-prober-regen` | file | `tectonic-os/bootloader` |  |  |
 | `bazaar` | capability | `tectonic-os/bazaar` |  |  |
-| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardening/hardened-malloc`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
+| `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardening/hardened-malloc`, `tectonic-os/plymouth`, `tectonic-os/kde-desktop`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
 | `flatpak` | capability | `tectonic-os/flatpak` | `tectonic-os/bazaar` |  |
 | `hardened-malloc` | capability | `tectonic-os/hardening/hardened-malloc` |  | `tectonic-os/libvirt`, `tectonic-os/vscodium` |
 | `initramfs-generation` | capability | `base` |  |  |
