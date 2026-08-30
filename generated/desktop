@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1.25.0@sha256:0adf442eae370b6087e08edc7c50b552d80ddf261576f4ebd6421006b2461f12
 # GENERATED FILE, do not edit. Produced by `tect generate` from
 # scripts/Containerfile.skeleton and the desktop image definition.
 
