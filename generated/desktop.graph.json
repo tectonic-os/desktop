@@ -10,10 +10,26 @@
       "after": []
     },
     {
+      "name": "/usr/bin/tect",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/tect",
+      "required_by": [],
+      "after": []
+    },
+    {
       "name": "/usr/libexec/grub2-os-prober-regen",
       "kind": "file",
       "build_only": false,
       "provider": "tectonic-os/bootloader",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/share/tectonic/assets",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/tect",
       "required_by": [],
       "after": []
     },

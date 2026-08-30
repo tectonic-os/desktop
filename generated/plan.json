@@ -307,6 +307,21 @@
       }
     },
     {
+      "name": "tectonic-os/tect",
+      "dir": "modules/.remote/tectonic-os/tect",
+      "file": "./desktop.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
       "name": "tectonic-os/dev-tools",
       "dir": "modules/.remote/tectonic-os/dev-tools",
       "file": "./desktop.image.kdl",
@@ -367,7 +382,23 @@
       }
     }
   ],
-  "assets": [],
+  "assets": [
+    {
+      "module": "tectonic-os/tect",
+      "name": "tect",
+      "manifest": "modules/.remote/tectonic-os/tect/module.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/tectonic/releases/download/v{version}/tect-v{version}-x86_64-linux-musl.tar.gz",
+        "selector": "0.6.10",
+        "verifier": "b8f29f839a2dd46f57c4cac1a0e9a22924cd628eb572083386d2c326b22c8f3f",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "sidecar",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/tectonic/releases/download/v0.6.10/tect-v0.6.10-x86_64-linux-musl.tar.gz"
+      }
+    }
+  ],
   "images": [
     {
       "id": "desktop",
@@ -1160,13 +1191,45 @@
                 "imported": null
               },
               "satisfies": []
+            },
+            {
+              "path": "tectonic-os/tect",
+              "dir": ".remote/tectonic-os/tect",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "tect itself, so a booted image answers for its own build with no repository; pinned separately from the tect-version that built it",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "d5fe1884b243cbd50a2ce8704149ca677ee35808f52bed4f3dbbbef7a13e1436",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
             }
           ],
           "suppressed": [],
           "secrets": [],
           "contract_files": [
             "/usr/libexec/grub2-os-prober-regen",
-            "/etc/pki/containers/cosign.pub"
+            "/etc/pki/containers/cosign.pub",
+            "/usr/bin/tect",
+            "/usr/share/tectonic/assets"
           ],
           "verify_exceptions": [
             {
@@ -1174,10 +1237,28 @@
               "unit": "plasmalogin.service"
             }
           ],
-          "assets": [],
+          "assets": [
+            {
+              "module": "tectonic-os/tect",
+              "name": "tect",
+              "manifest": "modules/.remote/tectonic-os/tect/module.kdl",
+              "pin": {
+                "locator": "https://github.com/tectonic-os/tectonic/releases/download/v{version}/tect-v{version}-x86_64-linux-musl.tar.gz",
+                "selector": "0.6.10",
+                "verifier": "b8f29f839a2dd46f57c4cac1a0e9a22924cd628eb572083386d2c326b22c8f3f",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "sidecar",
+                "path": null,
+                "resolved": "https://github.com/tectonic-os/tectonic/releases/download/v0.6.10/tect-v0.6.10-x86_64-linux-musl.tar.gz"
+              }
+            }
+          ],
           "provides_files": {
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
+            "/usr/bin/tect": "tectonic-os/tect",
+            "/usr/share/tectonic/assets": "tectonic-os/tect"
           },
           "overlay_files": {
             "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardening/hardened-malloc",
@@ -2000,6 +2081,36 @@
               "satisfies": []
             },
             {
+              "path": "tectonic-os/tect",
+              "dir": ".remote/tectonic-os/tect",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "tect itself, so a booted image answers for its own build with no repository; pinned separately from the tect-version that built it",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "d5fe1884b243cbd50a2ce8704149ca677ee35808f52bed4f3dbbbef7a13e1436",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
               "path": "tectonic-os/dev-tools",
               "dir": ".remote/tectonic-os/dev-tools",
               "flavour": "dx",
@@ -2175,7 +2286,9 @@
           "secrets": [],
           "contract_files": [
             "/usr/libexec/grub2-os-prober-regen",
-            "/etc/pki/containers/cosign.pub"
+            "/etc/pki/containers/cosign.pub",
+            "/usr/bin/tect",
+            "/usr/share/tectonic/assets"
           ],
           "verify_exceptions": [
             {
@@ -2183,10 +2296,28 @@
               "unit": "plasmalogin.service"
             }
           ],
-          "assets": [],
+          "assets": [
+            {
+              "module": "tectonic-os/tect",
+              "name": "tect",
+              "manifest": "modules/.remote/tectonic-os/tect/module.kdl",
+              "pin": {
+                "locator": "https://github.com/tectonic-os/tectonic/releases/download/v{version}/tect-v{version}-x86_64-linux-musl.tar.gz",
+                "selector": "0.6.10",
+                "verifier": "b8f29f839a2dd46f57c4cac1a0e9a22924cd628eb572083386d2c326b22c8f3f",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "sidecar",
+                "path": null,
+                "resolved": "https://github.com/tectonic-os/tectonic/releases/download/v0.6.10/tect-v0.6.10-x86_64-linux-musl.tar.gz"
+              }
+            }
+          ],
           "provides_files": {
             "/usr/libexec/grub2-os-prober-regen": "tectonic-os/bootloader",
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
+            "/usr/bin/tect": "tectonic-os/tect",
+            "/usr/share/tectonic/assets": "tectonic-os/tect"
           },
           "overlay_files": {
             "/etc/environment.d/30-hardened-malloc.conf": "tectonic-os/hardening/hardened-malloc",

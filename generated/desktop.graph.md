@@ -27,22 +27,23 @@ graph LR
     m15["tectonic-os/kde-desktop"]
     m16["tectonic-os/bazaar"]
     m17["tectonic-os/media-codecs"]
-    m18["tectonic-os/dev-tools [dx]"]
-    m19["tectonic-os/podman [dx]"]
-    m20["tectonic-os/libvirt [dx]"]
-    m21["tectonic-os/vscodium [dx]"]
+    m18["tectonic-os/tect"]
+    m19["tectonic-os/dev-tools [dx]"]
+    m20["tectonic-os/podman [dx]"]
+    m21["tectonic-os/libvirt [dx]"]
+    m22["tectonic-os/vscodium [dx]"]
     base -->|"mac-policy"| m0
     m0 -->|"build-environment"| m5
     m0 -->|"build-environment"| m12
     m0 -->|"build-environment"| m14
     m0 -->|"build-environment"| m15
     m0 -->|"build-environment"| m17
-    m0 -->|"build-environment"| m21
+    m0 -->|"build-environment"| m22
     m2 -->|"just"| m6
     m4 -->|"signature-policy"| m5
     m7 -->|"flatpak"| m16
-    m12 -.->|"hardened-malloc"| m20
     m12 -.->|"hardened-malloc"| m21
+    m12 -.->|"hardened-malloc"| m22
 ```
 
 ## Capabilities
@@ -50,7 +51,9 @@ graph LR
 | Name | Kind | Provided by | Required by | After |
 |---|---|---|---|---|
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
+| `/usr/bin/tect` | file | `tectonic-os/tect` |  |  |
 | `/usr/libexec/grub2-os-prober-regen` | file | `tectonic-os/bootloader` |  |  |
+| `/usr/share/tectonic/assets` | file | `tectonic-os/tect` |  |  |
 | `bazaar` | capability | `tectonic-os/bazaar` |  |  |
 | `build-environment` | capability | `tectonic-os/fedora-family` | `tectonic-os/auto-updates`, `tectonic-os/hardening/hardened-malloc`, `tectonic-os/plymouth`, `tectonic-os/kde-desktop`, `tectonic-os/media-codecs`, `tectonic-os/vscodium` |  |
 | `flatpak` | capability | `tectonic-os/flatpak` | `tectonic-os/bazaar` |  |

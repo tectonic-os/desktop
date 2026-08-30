@@ -37,6 +37,7 @@ image {
             module "kde-desktop"
             module "bazaar"
             module "media-codecs"
+            module "tect"
         }
 
         flavour "dx" {
