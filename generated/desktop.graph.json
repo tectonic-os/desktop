@@ -96,16 +96,6 @@
       "after": []
     },
     {
-      "name": "mac-policy",
-      "kind": "capability",
-      "build_only": false,
-      "provider": "base",
-      "required_by": [
-        "tectonic-os/fedora-family"
-      ],
-      "after": []
-    },
-    {
       "name": "plasma-desktop",
       "kind": "capability",
       "build_only": false,
@@ -115,6 +105,14 @@
     },
     {
       "name": "rechunking",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "selinux-policy",
       "kind": "capability",
       "build_only": false,
       "provider": "base",

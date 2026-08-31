@@ -32,7 +32,6 @@ graph LR
     m20["tectonic-os/podman [dx]"]
     m21["tectonic-os/libvirt [dx]"]
     m22["tectonic-os/vscodium [dx]"]
-    base -->|"mac-policy"| m0
     m0 -->|"build-environment"| m5
     m0 -->|"build-environment"| m12
     m0 -->|"build-environment"| m14
@@ -60,7 +59,7 @@ graph LR
 | `hardened-malloc` | capability | `tectonic-os/hardening/hardened-malloc` |  | `tectonic-os/libvirt`, `tectonic-os/vscodium` |
 | `initramfs-generation` | capability | `base` |  |  |
 | `just` | capability | `tectonic-os/just` | `tectonic-os/system-just-scripts` |  |
-| `mac-policy` | capability | `base` | `tectonic-os/fedora-family` |  |
 | `plasma-desktop` | capability | `tectonic-os/kde-desktop` |  |  |
 | `rechunking` | capability | `base` |  |  |
+| `selinux-policy` | capability | `base` |  |  |
 | `signature-policy` | capability | `tectonic-os/signature-policy` | `tectonic-os/auto-updates` |  |

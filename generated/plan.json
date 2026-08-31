@@ -424,9 +424,10 @@
         "provides": [
           "rechunking",
           "initramfs-generation",
-          "mac-policy"
+          "selinux-policy"
         ],
-        "provides_files": []
+        "provides_files": [],
+        "requires": []
       },
       "flavours": [
         {
@@ -463,14 +464,12 @@
               "provides": [
                 "build-environment"
               ],
-              "requires": [
-                "mac-policy"
-              ],
+              "requires": [],
               "packages": [],
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "751f76058e582a60799d59822540d7b3d770d68aac9d0632b81f7ce0aa14f6fe",
+                "content": "9f286702561b1cc57688f192ca2db2f84cd5f611e93ac3a7d406431491c2857a",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -1351,14 +1350,12 @@
               "provides": [
                 "build-environment"
               ],
-              "requires": [
-                "mac-policy"
-              ],
+              "requires": [],
               "packages": [],
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "751f76058e582a60799d59822540d7b3d770d68aac9d0632b81f7ce0aa14f6fe",
+                "content": "9f286702561b1cc57688f192ca2db2f84cd5f611e93ac3a7d406431491c2857a",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
