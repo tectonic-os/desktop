@@ -2,7 +2,7 @@ schema-version 1
 name "Desktop"
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
-tect-version "0.6.16" sha256="c77c0eb08b8418f1b57bc34188727835e856723b162c065f5fc04f0eb3737d44"
+tect-version "0.6.17" sha256="40b8409fc3fd29fd93e73df679ca98e768087599b9fb0a90a923002b56a8b5b6"
 
 workflows at="12:30" publish="scheduled" {
     base-sig-probe
