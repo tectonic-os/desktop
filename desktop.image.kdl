@@ -19,31 +19,31 @@ image {
 
     modules {
         source "tectonic-os" {
-            module "fedora-family/dnf"
+            module "fedora-family/build-environment"
             module "fedora-family/workstation-debloat"
-            module "just/runner"
+            module "system-menu/just-runner"
             module "boot/os-prober"
             module "updates/signature-policy"
             module "updates/auto-updates"
-            module "just/system-scripts"
-            module "flatpak/client"
+            module "system-menu/system-scripts"
+            module "flatpak"
             module "tools/brew"
-            module "tools/cli"
+            module "tools/cli-tools"
             module "hardening/coredumps"
             module "hardening/login-policy"
             module "hardening/hardened-malloc"
             module "hardening/sudo-hardening"
             module "boot/plymouth"
             module "desktop/kde"
-            module "flatpak/bazaar"
+            module "desktop/bazaar"
             module "fedora-family/media-codecs"
             module "tect"
         }
 
         flavour "dx" {
             source "tectonic-os" {
-                module "tools/dev"
-                module "virt/podman"
+                module "tools/git-tools"
+                module "virt/podman-extras"
                 module "virt/libvirt"
                 module "tools/vscodium"
             }
